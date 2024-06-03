@@ -10,7 +10,7 @@ import "./_styles.scss";
 export default function Hero(): ReactNode {
   return (
     <>
-      <div className="hero">
+      <div id="hero">
         <Swiper
           navigation={{
             nextEl: ".swiper-button-unique.left",
@@ -57,7 +57,7 @@ export default function Hero(): ReactNode {
           </div>
         </Swiper>
         <div className="know-more">
-          <a href="#mais">Saiba mais</a>
+          <a href="#atracoes">Saiba mais</a>
         </div>
         <div className="camelo" data-aos="fade-up">
           <div className="content">
@@ -74,6 +74,15 @@ export default function Hero(): ReactNode {
             <Image src="/balls.png" alt="balls" fill />
           </div>
         </div>
+        <a href="#orcamento" className="hihand">
+          <div className="text">Hey, orce sua festa !</div>
+          <div className="hand">
+            <Image src="/hand.png" alt="hand" fill />
+          </div>
+          <div className="arm">
+            <Image src="/arm.png" alt="arm" fill />
+          </div>
+        </a>
       </div>
       <div className="navbar-border">
         <div style={{ backgroundColor: "#EAAB9B" }} className="navbar" />

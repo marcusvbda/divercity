@@ -22,6 +22,18 @@
   }
 }
 
+@keyframes shakingHand {
+  0% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
 @keyframes shaking {
   0% {
     transform: rotate(0);
@@ -34,7 +46,7 @@
   }
 }
 
-.hero {
+#hero {
   background-color: var(--heroColor);
   padding: 100px 0 180px;
   @media screen and (max-width: 870px) {
@@ -193,18 +205,71 @@
   .balls {
     position: absolute;
     top: 30px;
-    right: 30%;
-    animation: leftAndRight 1s infinite;
+    left: 20%;
+    animation: shaking 1s infinite;
     .content {
       height: 60px;
       aspect-ratio: 113/81;
       img {
-        transform: rotate(30deg);
+        transform: rotate(-20deg);
       }
     }
 
     @media screen and (max-width: 870px) {
       display: none;
+    }
+  }
+
+  .hihand {
+    z-index: 9;
+    cursor: pointer;
+    position: absolute;
+    top: 80px;
+    right: -1px;
+    display: flex;
+    align-items: center;
+    animation: shakingHand 1.5s infinite;
+    transform-origin: right;
+
+    @media screen and (max-width: 750px) {
+      display: none;
+    }
+
+    @media screen and (max-width: 900px) {
+      top: 45px;
+      right: -5px;
+    }
+
+    .text {
+      cursor: pointer;
+      font-family: "Amatic SC", sans-serif;
+      color: var(--grayText);
+      position: absolute;
+      z-index: 3;
+      text-align: center;
+      transform: rotate(289deg);
+      right: 88px;
+      width: 96px;
+      top: -10px;
+      @media screen and (max-width: 900px) {
+        width: 70px;
+        font-size: 13px;
+      }
+    }
+    .hand {
+      cursor: pointer;
+      height: 60px;
+      aspect-ratio: 86/77;
+      position: relative;
+      top: -6px;
+      right: -1px;
+    }
+
+    .arm {
+      cursor: pointer;
+      height: 30px;
+      aspect-ratio: 44/34;
+      position: relative;
     }
   }
 

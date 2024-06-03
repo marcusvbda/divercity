@@ -1,0 +1,82 @@
+@keyframes clibimg {
+  0% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+
+.up-btn {
+  transform: translateY(calc(-100vh));
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  z-index: 999;
+  border: none;
+  outline: none;
+  transition: transform 1s ease-in-out;
+
+  button {
+    cursor: pointer;
+    position: relative;
+    aspect-ratio: 1;
+    width: 100px;
+    border: none;
+    background-color: transparent;
+    animation: clibimg 2s infinite;
+    transform-origin: center;
+
+    .speech {
+      position: absolute;
+      top: -30px;
+      left: -20px;
+      transform: rotate(337deg);
+      .speech-bubble {
+        font-family: "Poetsen One", sans-serif;
+        position: relative;
+        background: #eaeaea;
+        border-radius: 0.4em;
+        padding: 5px 10px;
+        color: (--grayText);
+        &::after {
+          content: "";
+          position: absolute;
+          top: 17px;
+          left: 35px;
+          transform: rotate(124deg);
+          width: 0;
+          height: 0;
+          border: 0.938em solid transparent;
+          border-top-color: #eaeaea;
+          border-bottom: 0;
+          border-right: 0;
+          margin-left: -0.469em;
+          margin-bottom: -0.937em;
+        }
+      }
+    }
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 100vh;
+    position: absolute;
+    top: calc(-100vh + 20px);
+    right: 54px;
+    background: linear-gradient(0deg, #444 50%, transparent 50%);
+    background-repeat: repeat-y;
+    background-size: 2px 10px;
+    background-position: 0 0;
+    pointer-events: none;
+  }
+
+  &.show {
+    transform: translateY(0);
+  }
+}
