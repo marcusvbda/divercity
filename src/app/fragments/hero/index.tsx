@@ -56,8 +56,10 @@ export default function Hero(): ReactNode {
             </div>
           </div>
         </Swiper>
-        <div className="know-more">
-          <a href="#atracoes">Saiba mais</a>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <a href="#atracoes">
+            <div className="know-more">Saiba mais</div>
+          </a>
         </div>
         <div className="camelo" data-aos="fade-up">
           <div className="content">
@@ -84,13 +86,7 @@ export default function Hero(): ReactNode {
           </div>
         </a>
       </div>
-      <div className="navbar-border">
-        <div style={{ backgroundColor: "#EAAB9B" }} className="navbar" />
-        <div style={{ backgroundColor: "#ABBB7F" }} className="navbar" />
-        <div style={{ backgroundColor: "#A97FAE" }} className="navbar" />
-        <div style={{ backgroundColor: "#EFC575" }} className="navbar" />
-        <div style={{ backgroundColor: "#5FB2B7" }} className="navbar" />
-      </div>
+      <div className="navbar-border" />
     </>
   );
 }

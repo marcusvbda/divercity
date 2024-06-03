@@ -138,7 +138,6 @@
         aspect-ratio: 43.72/32.33;
         z-index: 1;
         img {
-          // z-index: 1;
           position: relative;
         }
       }
@@ -160,22 +159,6 @@
       &.right {
         right: 20px;
       }
-    }
-  }
-
-  .know-more {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-    a {
-      text-decoration: unset;
-      background-color: #ffd7cd;
-      color: #ec6830;
-      border: 1px dotted #ec6830;
-      padding: 13px 40px;
-      font-weight: 600;
-      border-radius: 8px;
     }
   }
 

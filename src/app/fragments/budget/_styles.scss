@@ -1,0 +1,60 @@
+#orcamento {
+  padding: 50px 50px 0;
+  position: relative;
+  background-color: #c3e1db;
+  display: flex;
+  justify-content: center;
+  .cloud {
+    height: 40px !important;
+    width: 100% !important;
+    top: -30px !important;
+    position: absolute;
+  }
+
+  .card {
+    background-color: rgb(243, 243, 243);
+    border: 1px solid #89c6ba;
+    position: relative;
+    bottom: -10px;
+    padding: 30px 100px 100px;
+    width: 70%;
+
+    @media screen and (max-width: 1200px) {
+      width: 80%;
+      padding: 30px 70px 100px;
+    }
+
+    @media screen and (max-width: 950px) {
+      width: 95%;
+      padding: 30px 50px 100px;
+    }
+
+    h3 {
+      position: relative;
+      font-family: "Poppins", sans-serif;
+      color: var(--secondaryText);
+      text-transform: uppercase;
+      font-size: 2rem;
+
+      @media screen and (max-width: 1200px) {
+        font-size: 1.8rem;
+      }
+
+      @media screen and (max-width: 950px) {
+        font-size: 1.5rem;
+      }
+
+      font-weight: 500;
+      &::before {
+        bottom: -30px;
+        position: absolute;
+        content: "";
+        display: block;
+        width: 50px;
+        height: 4px;
+        background-color: var(--primary);
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

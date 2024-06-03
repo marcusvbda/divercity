@@ -3,7 +3,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { useEffect } from "react";
 import AOS from "aos";
-import Hero from "./fragments/_hero";
+import Hero from "./fragments/hero";
+import ContactSection from "./fragments/contact";
+import Image from "next/image";
+import BudgetSection from "./fragments/budget";
+import Attractions from "./fragments/attractions";
 
 export default function Home() {
   useEffect(() => {
@@ -20,39 +24,9 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <div
-        id="atracoes"
-        style={{
-          padding: 100,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <h1>atrações</h1>
-      </div>
-      <div
-        id="orcamento"
-        style={{
-          padding: 100,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <h1>orçamento</h1>
-      </div>
-      <div
-        id="contato"
-        style={{
-          padding: 100,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <h1>contato</h1>
-      </div>
+      <Attractions />
+      <BudgetSection />
+      <ContactSection />
     </main>
   );
 }
