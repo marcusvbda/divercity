@@ -31,7 +31,12 @@ export default function BtnUp(): ReactNode {
         <div className="speech">
           <div className="speech-bubble">Subir ?</div>
         </div>
-        <Image src="/climber.png" alt="up" fill />
+        <Image
+          src="/climber.png"
+          alt="up"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       </button>
     </div>
   );

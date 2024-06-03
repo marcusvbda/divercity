@@ -191,6 +191,7 @@
     left: 20%;
     animation: shaking 1s infinite;
     .content {
+      position: relative;
       height: 60px;
       aspect-ratio: 113/81;
       img {

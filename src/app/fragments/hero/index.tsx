@@ -47,12 +47,22 @@ export default function Hero(): ReactNode {
           </SwiperSlide>
           <div className="swiper-button-unique left">
             <div className="content">
-              <Image src="/arrow.svg" alt="arrow" fill />
+              <Image
+                src="/arrow.svg"
+                alt="arrow"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </div>
           </div>
           <div className="swiper-button-unique right">
             <div className="content">
-              <Image src="/arrow-r.svg" alt="arrow" fill />
+              <Image
+                src="/arrow-r.svg"
+                alt="arrow"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </div>
           </div>
         </Swiper>
@@ -63,26 +73,51 @@ export default function Hero(): ReactNode {
         </div>
         <div className="camelo" data-aos="fade-up">
           <div className="content">
-            <Image src="/camelo.png" alt="camelo" fill />
+            <Image
+              src="/camelo.png"
+              alt="camelo"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
           </div>
         </div>
         <div className="arrow-logo" data-aos="fade-left">
           <div className="content">
-            <Image src="/arrow-logo.png" alt="arrow-logo" fill />
+            <Image
+              src="/arrow-logo.png"
+              alt="arrow-logo"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
           </div>
         </div>
         <div className="balls" data-aos="zoom-in-down">
           <div className="content">
-            <Image src="/balls.png" alt="balls" fill />
+            <Image
+              src="/balls.png"
+              alt="balls"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
           </div>
         </div>
         <a href="#orcamento" className="hihand">
           <div className="text">Hey, orce sua festa !</div>
           <div className="hand">
-            <Image src="/hand.png" alt="hand" fill />
+            <Image
+              src="/hand.png"
+              alt="hand"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
           </div>
           <div className="arm">
-            <Image src="/arm.png" alt="arm" fill />
+            <Image
+              src="/arm.png"
+              alt="arm"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
           </div>
         </a>
       </div>

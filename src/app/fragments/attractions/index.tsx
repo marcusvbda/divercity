@@ -11,7 +11,7 @@ export default function Attractions(): ReactNode {
       id="atracoes"
       style={{ "--bg-image": `url('/desenho.png')` } as CSSProperties}
     >
-      <h1>atraçoes</h1>
+      <h1>Atraçoes aqui ...</h1>
     </div>
   );
 }

@@ -23,7 +23,13 @@ export default function RootLayout({
         <header>
           <nav>
             <div className="logo">
-              <Image src="/logo.png" alt="Vercel Logo" fill priority />
+              <Image
+                src="/logo.png"
+                alt="Vercel Logo"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </div>
             <div className="pages">
               <a href="#topo" className="nav-link active">
@@ -44,7 +50,13 @@ export default function RootLayout({
         {children}
         <BtnUp />
         <footer>
-          <Image src="/cloud-footer.png" className="cloud" alt="cloud" fill />
+          <Image
+            src="/cloud-footer.png"
+            className="cloud"
+            alt="cloud"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
           <div className="opening-hours">
             <h3>Horários de funcionamento</h3>
             <p>
@@ -64,10 +76,22 @@ export default function RootLayout({
             <h3>Redes sociais</h3>
             <div className="items">
               <a href="#" className="item">
-                <Image src="/instagram.png" alt="instagram" fill />
+                <Image
+                  src="/instagram.png"
+                  alt="instagram"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </a>
               <a href="#" className="item">
-                <Image src="/facebook.jpeg" alt="facebook" fill />
+                <Image
+                  src="/facebook.jpeg"
+                  alt="facebook"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </a>
             </div>
           </div>
