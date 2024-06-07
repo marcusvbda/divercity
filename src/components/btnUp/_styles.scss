@@ -14,11 +14,7 @@
 	transform: translateY(calc(-100vh));
 	position: fixed;
 	bottom: 35px;
-	right: 35px;
-
-	@media screen and (max-width: 950px) {
-		right: 15px;
-	}
+	right: -9px;
 	z-index: 999;
 	border: none;
 	outline: none;
@@ -77,7 +73,6 @@
 		top: calc(-100vh + 20px);
 		right: 54px;
 		background: linear-gradient(45deg, var(--primary) 50%, var(--grayText) 50%);
-		// background: #444;
 		background-repeat: repeat-y;
 		background-size: 2px 10px;
 		background-position: 0 0;

@@ -1,55 +1,92 @@
 #contato {
-  position: relative;
-  background-color: #ffffff;
-  display: flex;
-  padding: 80px 50px 120px;
-  gap: 50px;
-  background-image: var(--bg-image);
+	position: relative;
+	background-color: #ffffff;
+	display: flex;
+	padding: 80px 50px 120px;
+	gap: 50px;
+	background-image: var(--bg-image);
 
-  @media screen and (max-width: 900px) {
-    flex-direction: column;
-  }
+	@media screen and (max-width: 900px) {
+		flex-direction: column;
+	}
 
-  .cloud {
-    height: 40px !important;
-    width: 100% !important;
-    top: -30px !important;
-    position: absolute;
-  }
-  .banner {
-    flex: 1;
-    aspect-ratio: 800/599;
-    position: relative;
-  }
+	.cloud {
+		height: 40px !important;
+		width: 100% !important;
+		top: -30px !important;
+		position: absolute;
+	}
+	.banner {
+		flex: 1.5;
+		aspect-ratio: 800/599;
+		position: relative;
+	}
 
-  .form {
-    flex: 1;
-    h3 {
-      position: relative;
-      font-family: "Poppins", sans-serif;
-      color: var(--secondaryText);
-      text-transform: uppercase;
-      font-size: 2rem;
+	.form {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		h3 {
+			position: relative;
+			font-family: 'Poppins', sans-serif;
+			color: var(--secondaryText);
+			text-transform: uppercase;
+			font-size: 2rem;
 
-      @media screen and (max-width: 1200px) {
-        font-size: 1.8rem;
-      }
+			@media screen and (max-width: 1200px) {
+				font-size: 1.8rem;
+			}
 
-      @media screen and (max-width: 950px) {
-        font-size: 1.5rem;
-      }
+			@media screen and (max-width: 950px) {
+				font-size: 1.5rem;
+			}
 
-      font-weight: 500;
-      &::before {
-        bottom: -30px;
-        position: absolute;
-        content: "";
-        display: block;
-        width: 50px;
-        height: 4px;
-        background-color: var(--primary);
-        margin-bottom: 20px;
-      }
-    }
-  }
+			font-weight: 500;
+			&::before {
+				bottom: -30px;
+				position: absolute;
+				content: '';
+				display: block;
+				width: 50px;
+				height: 4px;
+				background-color: var(--primary);
+				margin-bottom: 20px;
+			}
+		}
+
+		.description {
+			margin-top: 30px;
+			font-family: 'Poppins', sans-serif;
+			font-size: 1.05rem;
+			color: var(--mutedText);
+		}
+
+		form {
+			height: inherit;
+			margin-top: 20px;
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+			input,
+			textarea {
+				border: 1px solid rgb(235, 235, 235);
+				padding: 15px;
+				font-size: 1.1rem;
+				border-radius: 8px;
+				color: var(--secondaryText);
+				resize: none;
+				&::placeholder {
+					color: var(--mutedText);
+					opacity: 0.5;
+				}
+			}
+
+			.know-more {
+				margin-top: 0;
+				padding: 15px;
+				font-size: 1.1rem;
+			}
+		}
+	}
 }

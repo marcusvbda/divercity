@@ -1,0 +1,23 @@
+.social-network {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: flex-end;
+	@media screen and (max-width: 900px) {
+		align-items: center;
+	}
+
+	.items {
+		display: flex;
+		gap: 10px;
+		.item {
+			cursor: pointer;
+			height: 40px;
+			width: 40px;
+			position: relative;
+			overflow: hidden;
+			border-radius: 10px;
+		}
+	}
+}
