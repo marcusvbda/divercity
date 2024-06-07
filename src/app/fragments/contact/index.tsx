@@ -9,17 +9,14 @@ export default function ContactSection(): ReactNode {
 		message: '',
 	});
 
-	const submitHandler = useCallback((e: any) => {
+	const submitHandler = (e: any) => {
 		e.preventDefault();
 		const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
-		const message = `
-		 	*Nome:* ${form.name} %0A
-			*Mensagem:* ${form.message}
+		const message = ` *Nome:* ${form.name} %0a *Mensagem:* ${form.message}
 		`;
 		const url = `https://wa.me/${phone}?text=${message}`;
 		window.open(url, '_blank');
-		setForm({ name: '', message: '' });
-	}, []);
+	};
 
 	return (
 		<div id="contato">

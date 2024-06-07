@@ -1,60 +1,158 @@
 #orcamento {
-  padding: 50px 50px 0;
-  position: relative;
-  background-color: #c3e1db;
-  display: flex;
-  justify-content: center;
-  .cloud {
-    height: 40px !important;
-    width: 100% !important;
-    top: -30px !important;
-    position: absolute;
-  }
+	padding: 50px 50px 0;
+	position: relative;
+	background-color: #c3e1db;
+	display: flex;
+	justify-content: center;
+	.cloud {
+		height: 40px !important;
+		width: 100% !important;
+		top: -30px !important;
+		position: absolute;
+	}
 
-  .card {
-    background-color: rgb(243, 243, 243);
-    border: 1px solid #89c6ba;
-    position: relative;
-    bottom: -10px;
-    padding: 30px 100px 100px;
-    width: 70%;
+	.card {
+		background-color: rgb(243, 243, 243);
+		border: 1px solid #89c6ba;
+		position: relative;
+		bottom: -10px;
+		padding: 30px 100px 100px;
+		width: 70%;
+		flex-direction: column;
+		justify-content: center;
+		display: flex;
 
-    @media screen and (max-width: 1200px) {
-      width: 80%;
-      padding: 30px 70px 100px;
-    }
+		@media screen and (max-width: 1200px) {
+			width: 95%;
+			padding: 30px 70px 100px;
+		}
 
-    @media screen and (max-width: 950px) {
-      width: 95%;
-      padding: 30px 50px 100px;
-    }
+		@media screen and (max-width: 950px) {
+			width: 100%;
+			padding: 30px 50px 100px;
+		}
 
-    h3 {
-      position: relative;
-      font-family: "Poppins", sans-serif;
-      color: var(--secondaryText);
-      text-transform: uppercase;
-      font-size: 2rem;
+		h3 {
+			position: relative;
+			font-family: 'Poppins', sans-serif;
+			color: var(--secondaryText);
+			text-transform: uppercase;
+			font-size: 2rem;
 
-      @media screen and (max-width: 1200px) {
-        font-size: 1.8rem;
-      }
+			@media screen and (max-width: 1200px) {
+				font-size: 1.8rem;
+			}
 
-      @media screen and (max-width: 950px) {
-        font-size: 1.5rem;
-      }
+			@media screen and (max-width: 950px) {
+				font-size: 1.5rem;
+			}
 
-      font-weight: 500;
-      &::before {
-        bottom: -30px;
-        position: absolute;
-        content: "";
-        display: block;
-        width: 50px;
-        height: 4px;
-        background-color: var(--primary);
-        margin-bottom: 20px;
-      }
-    }
-  }
+			font-weight: 500;
+			&::before {
+				bottom: -30px;
+				position: absolute;
+				content: '';
+				display: block;
+				width: 50px;
+				height: 4px;
+				background-color: var(--primary);
+				margin-bottom: 20px;
+			}
+		}
+
+		.description {
+			margin-top: 30px;
+			font-family: 'Poppins', sans-serif;
+			color: var(--grayText);
+			font-size: 1.1rem;
+
+			@media screen and (max-width: 1200px) {
+				font-size: 1rem;
+			}
+		}
+
+		.subscription {
+			font-size: 1.1rem;
+			font-family: 'Poppins', sans-serif;
+			color: var(--primary);
+			margin-top: 20px;
+		}
+
+		.form {
+			align-self: center;
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 20px;
+			width: min(500px, 100%);
+
+			h4 {
+				font-family: 'Poppins', sans-serif;
+				color: var(--secondaryText);
+				font-size: 1.4rem;
+				margin-bottom: 10px;
+				text-align: center;
+				font-weight: 300;
+			}
+
+			form {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 6px;
+				small {
+					color: var(--mutedText);
+				}
+
+				input {
+					width: 100%;
+					border: 1px solid rgb(235, 235, 235);
+					padding: 15px;
+					font-size: 1.4rem;
+					border-radius: 8px;
+					color: var(--secondaryText);
+					resize: none;
+					text-align: center;
+					&::placeholder {
+						color: var(--mutedText);
+						opacity: 0.5;
+					}
+				}
+			}
+
+			.btns {
+				margin-top: 20px;
+				display: flex;
+				flex-direction: row;
+				gap: 10px;
+				.know-more {
+					flex: 1;
+					margin-top: 0;
+					display: flex;
+					gap: 20px;
+
+					.arrow-logo {
+						position: relative;
+						width: 30px;
+						height: 30px;
+						transition: transform 0.3s ease-in-out;
+					}
+
+					@media screen and (max-width: 600px) {
+						span {
+							display: none;
+						}
+					}
+
+					&:hover {
+						.arrow-logo {
+							transform: scale(1.1);
+						}
+					}
+				}
+			}
+		}
+	}
 }
