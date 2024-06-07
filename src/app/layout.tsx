@@ -7,7 +7,7 @@ import SocialNetworks from '@/components/SocialNetworks';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Divercity Park',
+	title: 'Divercity Park | Maringá - PR',
 	description:
 		'Venha se divertir no nosso centro de diversão infantil localizado no Shopping Maringá. Oferecemos um ambiente seguro e cheio de atrações para as crianças.',
 };
