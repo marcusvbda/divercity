@@ -20,6 +20,7 @@ const Step0 = ({ form, setForm, step, setStep }: any) => {
 					type="email"
 					placeholder="Seu email ..."
 					required
+					autoFocus
 					value={form.email}
 					onChange={(e) => setForm({ ...form, email: e.target.value })}
 				/>
@@ -54,6 +55,7 @@ const Step1 = ({ form, setForm, step, setStep }: any) => {
 				<input
 					type="text"
 					placeholder="Seu nome ..."
+					autoFocus
 					required
 					value={form.name}
 					onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -90,6 +92,7 @@ const Step2 = ({ form, setForm, step, setStep }: any) => {
 					type="number"
 					placeholder="Pessoas"
 					step={1}
+					autoFocus
 					value={form.qty}
 					onChange={(e) => setForm({ ...form, qty: parseInt(e.target.value) })}
 					max={40}
@@ -128,6 +131,7 @@ const Step3 = ({ form, setForm, step, setStep }: any) => {
 					placeholder="Pessoas"
 					step={1}
 					value={form.children}
+					autoFocus
 					onChange={(e) =>
 						setForm({ ...form, children: parseInt(e.target.value) })
 					}
@@ -183,6 +187,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 					type="date"
 					placeholder="Data da festa"
 					value={form.date}
+					autoFocus
 					onChange={(e) => setForm({ ...form, date: e.target.value })}
 					required
 				/>
@@ -242,6 +247,7 @@ const Step5 = ({ form, setForm, step, setStep }: any) => {
 				<label className="label-checkbox">
 					<input
 						type="checkbox"
+						autoFocus
 						value="true"
 						checked={form.hasDecorator}
 						onChange={(e) =>
