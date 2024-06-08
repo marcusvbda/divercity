@@ -3,7 +3,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { CSSProperties, ReactNode } from 'react';
 import './_styles.scss';
-import Image from 'next/image';
+import AspectRatio from '@/components/aspectRatio';
 
 export default function Attractions(): ReactNode {
 	return (
@@ -24,23 +24,16 @@ export default function Attractions(): ReactNode {
 						Salte alto e se divirta na nossa incrível arena de camas elásticas!
 					</div>
 				</div>
-				<div className="banner" style={{ aspectRatio: 600 / 399 }}>
-					<Image
+				<div className="banner">
+					<AspectRatio
 						src="/attractions/cama-elastica.jpeg"
-						alt="banner"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						size={{ width: '100%' }}
 					/>
 				</div>
 			</div>
 			<div className="banner-row">
-				<div className="banner" style={{ aspectRatio: 1200 / 1600 }}>
-					<Image
-						src="/attractions/ninja.jpeg"
-						alt="banner"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-					/>
+				<div className="banner">
+					<AspectRatio src="/attractions/ninja.jpeg" size={{ width: '100%' }} />
 				</div>
 				<div className="text">
 					<h3>Guerreiro Ninja</h3>
@@ -69,22 +62,18 @@ export default function Attractions(): ReactNode {
 						Escale, alcance o topo e vença seus limites!
 					</div>
 				</div>
-				<div className="banner" style={{ aspectRatio: 1080 / 675 }}>
-					<Image
+				<div className="banner">
+					<AspectRatio
 						src="/attractions/escalada.webp"
-						alt="banner"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						size={{ width: '100%' }}
 					/>
 				</div>
 			</div>
 			<div className="banner-row">
-				<div className="banner" style={{ aspectRatio: 1600 / 900 }}>
-					<Image
+				<div className="banner">
+					<AspectRatio
 						src="/attractions/buffet.jpeg"
-						alt="banner"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						size={{ width: '100%' }}
 					/>
 				</div>
 				<div className="text">
@@ -118,22 +107,18 @@ export default function Attractions(): ReactNode {
 						Enfrente o Desafio Radical e supere todos os obstáculos!
 					</div>
 				</div>
-				<div className="banner" style={{ aspectRatio: 1600 / 1258 }}>
-					<Image
+				<div className="banner">
+					<AspectRatio
 						src="/attractions/desafio-radical.jpeg"
-						alt="desafio radical"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						size={{ width: '100%' }}
 					/>
 				</div>
 			</div>
 			<div className="banner-row">
-				<div className="banner" style={{ aspectRatio: 1600 / 1200 }}>
-					<Image
+				<div className="banner">
+					<AspectRatio
 						src="/attractions/pula-pula.jpeg"
-						alt="banner"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						size={{ width: '100%' }}
 					/>
 				</div>
 				<div className="text">
@@ -163,22 +148,15 @@ export default function Attractions(): ReactNode {
 						Descanse e relaxe enquanto seus filhos brincam!
 					</div>
 				</div>
-				<div className="banner" style={{ aspectRatio: 1200 / 900 }}>
-					<Image
-						src="/attractions/bar.jpeg"
-						alt="banner"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-					/>
+				<div className="banner">
+					<AspectRatio src="/attractions/bar.jpeg" size={{ width: '100%' }} />
 				</div>
 			</div>
 			<div className="banner-row">
-				<div className="banner" style={{ aspectRatio: 1200 / 1600 }}>
-					<Image
+				<div className="banner">
+					<AspectRatio
 						src="/attractions/muito-mais.jpeg"
-						alt="banner"
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						size={{ width: '100%' }}
 					/>
 				</div>
 				<div className="text">

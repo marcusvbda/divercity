@@ -7,6 +7,7 @@ import 'swiper/css/navigation';
 import Image from 'next/image';
 import './_styles.scss';
 import Link from 'next/link';
+import AspectRatio from '@/components/aspectRatio';
 
 export default function Hero(): ReactNode {
 	return (
@@ -73,52 +74,21 @@ export default function Hero(): ReactNode {
 					</Link>
 				</div>
 				<div className="camelo" data-aos="fade-up">
-					<div className="content">
-						<Image
-							src="/camelo.png"
-							alt="camelo"
-							fill
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						/>
-					</div>
+					<AspectRatio src="/camelo.png" size={{ height: 200 }} />
 				</div>
 				<div className="arrow-logo" data-aos="fade-left">
-					<div className="content">
-						<Image
-							src="/arrow-logo.png"
-							alt="arrow-logo"
-							fill
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						/>
-					</div>
+					<AspectRatio src="/arrow-logo.png" size={{ height: 200 }} />
 				</div>
 				<div className="balls" data-aos="zoom-in-down">
-					<div className="content">
-						<Image
-							src="/balls.png"
-							alt="balls"
-							fill
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						/>
-					</div>
+					<AspectRatio src="/balls.png" size={{ height: 60 }} />
 				</div>
 				<Link href="#orcamento" className="hihand">
 					<div className="text">Faça sua festa com a gente</div>
 					<div className="hand">
-						<Image
-							src="/hand.png"
-							alt="hand"
-							fill
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						/>
+						<AspectRatio src="/hand.png" size={{ height: 60 }} />
 					</div>
 					<div className="arm">
-						<Image
-							src="/arm.png"
-							alt="arm"
-							fill
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						/>
+						<AspectRatio src="/arm.png" size={{ height: 30 }} />
 					</div>
 				</Link>
 			</div>

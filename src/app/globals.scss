@@ -43,12 +43,13 @@ body {
 			@media screen and (max-width: 900px) {
 				flex-direction: column;
 				align-items: center;
+				padding: 10px;
 			}
 
-			.logo {
-				position: relative;
-				aspect-ratio: 620/403;
-				height: 100px;
+			@media screen and (max-width: 600px) {
+				.social-network {
+					display: none;
+				}
 			}
 
 			.pages {
@@ -57,6 +58,10 @@ body {
 				align-items: center;
 				gap: 30px;
 				justify-content: flex-end;
+
+			@media screen and (max-width: 600px) {
+				justify-content: center;
+			}
 
 				.nav-link {
 					color: black;
@@ -137,11 +142,15 @@ body {
 		}
 		@media screen and (max-width: 900px) {
 			flex-direction: column;
+			padding: 50px 20px;
 		}
 
 		h3 {
 			color: var(--primary);
 			margin-bottom: 10px;
+			@media screen and (max-width: 900px) {
+				text-align: center;
+			}
 		}
 
 		.opening-hours {

@@ -2,6 +2,7 @@
 import { ReactNode, useState } from 'react';
 import Image from 'next/image';
 import './_styles.scss';
+import AspectRatio from '@/components/aspectRatio';
 export default function ContactSection(): ReactNode {
 	const [form, setForm] = useState({
 		name: '',
@@ -26,13 +27,8 @@ export default function ContactSection(): ReactNode {
 				fill
 				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 			/>
-			<div className="banner" style={{ aspectRatio: 1360 / 760 }}>
-				<Image
-					src="/contato.jpeg"
-					alt="banner"
-					fill
-					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-				/>
+			<div className="banner">
+				<AspectRatio src="/contato.jpeg" size={{ width: '100%' }} />
 			</div>
 			<div className="form">
 				<h3>Nos mande uma mensagem</h3>

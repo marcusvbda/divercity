@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
 import BtnUp from '@/components/btnUp';
-import SocialNetworks from '@/components/SocialNetworks';
+import SocialNetworks from '@/components/socialNetworks';
+import AspectRatio from '@/components/aspectRatio';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 		url: 'https://www.divercitypark.com.br',
 		images: [
 			{
-				url: 'hhttps://www.divercitypark.com.br/_next/image?url=%2Flogo.png&w=640&q=75',
+				url: 'https://www.divercitypark.com.br/logo.png',
 				width: 620,
 				height: 402,
 				alt: 'Divercity Park',
@@ -47,15 +48,7 @@ export default function RootLayout({
 				<GoogleAnalytics gaId={analyticsId} />
 				<header>
 					<nav>
-						<div className="logo">
-							<Image
-								src="/logo.png"
-								alt="Vercel Logo"
-								fill
-								priority
-								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-							/>
-						</div>
+						<AspectRatio src="/logo.png" size={{ height: 100 }} />
 						<div className="pages">
 							<Link href="#topo" className="nav-link active">
 								<div>Início</div>

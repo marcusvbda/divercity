@@ -2,7 +2,7 @@
 
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import './_styles.scss';
-import Image from 'next/image';
+import AspectRatio from '../aspectRatio';
 export default function BtnUp(): ReactNode {
 	const [className, setClassName] = useState('hidden');
 
@@ -32,12 +32,7 @@ export default function BtnUp(): ReactNode {
 				<div className="speech">
 					<div className="speech-bubble">Subir ?</div>
 				</div>
-				<Image
-					src="/climber.png"
-					alt="up"
-					fill
-					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-				/>
+				<AspectRatio src="/climber.png" size={{ width: 160 }} />
 			</button>
 		</div>
 	);
