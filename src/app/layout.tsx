@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
 import BtnUp from '@/components/btnUp';
-import SocialNetworks from '@/components/socialNetworks';
 import AspectRatio from '@/components/aspectRatio';
+import SocialNetworks from '@/components/socialNetworks';
 
 const inter = Inter({ subsets: ['latin'] });
 
