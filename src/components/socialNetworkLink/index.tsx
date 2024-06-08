@@ -1,7 +1,7 @@
 import './_styles.scss';
 import Link from 'next/link';
 import AspectRatio from '../aspectRatio';
-export default function SocialNetworks({ title }: any) {
+export default function SocialNetworkLinks({ title }: any) {
 	const facebook = process.env.NEXT_PUBLIC_FACEBOOK || '#';
 	const instagram = process.env.NEXT_PUBLIC_INSTAGRAM || '#';
 	const wppPhone = process.env.NEXT_PUBLIC_WPP_PHONE || '#';

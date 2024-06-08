@@ -7,7 +7,7 @@ import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
 import BtnUp from '@/components/btnUp';
 import AspectRatio from '@/components/aspectRatio';
-import SocialNetworks from '@/components/socialNetworks';
+import SocialNetworkLinks from '@/components/socialNetworkLink';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -62,7 +62,7 @@ export default function RootLayout({
 							<Link href="#contato" className="nav-link">
 								<div>Contato</div>
 							</Link>
-							<SocialNetworks />
+							<SocialNetworkLinks />
 						</div>
 					</nav>
 				</header>
@@ -97,7 +97,7 @@ export default function RootLayout({
 						</p>
 						<p>Shopping Cidade Maringá</p>
 					</div>
-					<SocialNetworks title="Redes sociais" />
+					<SocialNetworkLinks title="Redes sociais" />
 				</footer>
 				<div className="subfooter">
 					<div>©{currentYear}, Todos os direitos reservados Divercity</div>
