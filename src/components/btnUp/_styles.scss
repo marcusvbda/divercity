@@ -19,6 +19,8 @@
 	border: none;
 	outline: none;
 	transition: transform 1s ease-in-out;
+	opacity: .6;
+	transition: .3s ease-in-out;
 
 	button {
 		cursor: pointer;
@@ -28,13 +30,14 @@
 		animation: clibimg 2s infinite;
 		transform-origin: center;
 		position: absolute;
-		right: -13px;
+		right: 5px;
 		bottom: 10px;
+
 
 		.speech {
 			position: absolute;
-			top: -12px;
-			left: 9px;
+			top: -21px;
+			left: -4px;
 			transform: rotate(324deg);
 			.speech-bubble {
 				font-family: 'Poetsen One', sans-serif;
@@ -79,5 +82,9 @@
 
 	&.show {
 		transform: translateY(0);
+	}
+
+	&:hover {
+		opacity: 1;
 	}
 }

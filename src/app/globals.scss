@@ -193,3 +193,18 @@ body {
 		color: var(--grayText);
 	}
 }
+
+
+.label-checkbox {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	margin-bottom: 20px;
+
+	input {
+		width: 20px!important;
+		height: 20px!important;
+	}
+	cursor: pointer;
+}

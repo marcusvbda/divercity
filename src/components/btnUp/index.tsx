@@ -32,7 +32,7 @@ export default function BtnUp(): ReactNode {
 				<div className="speech">
 					<div className="speech-bubble">Subir ?</div>
 				</div>
-				<AspectRatio src="/climber.png" size={{ width: 160 }} />
+				<AspectRatio src="/climber.png" size={{ width: 120 }} />
 			</button>
 		</div>
 	);
