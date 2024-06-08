@@ -8,6 +8,7 @@
 
 	@media screen and (max-width: 900px) {
 		flex-direction: column;
+		padding: 80px 30px 120px;
 	}
 
 	.cloud {
@@ -17,6 +18,9 @@
 		position: absolute;
 	}
 	.banner {
+		@media screen and (max-width: 900px) {
+			display: none;
+		}
 		flex: 1.5;
 		aspect-ratio: 800/599;
 		position: relative;

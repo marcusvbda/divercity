@@ -1,15 +1,35 @@
-import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 import './globals.scss';
 import Image from 'next/image';
 import BtnUp from '@/components/btnUp';
 import SocialNetworks from '@/components/SocialNetworks';
+import Link from 'next/link';
+import { Metadata } from 'next';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: 'Divercity Park | Maringá - PR',
 	description:
-		'Venha se divertir no nosso centro de diversão infantil localizado no Shopping Maringá. Oferecemos um ambiente seguro e cheio de atrações para as crianças.',
+		'No Divercity Park, oferecemos diversão e aventura para crianças com nossa arena de camas elásticas, guerreiro ninja, parede de escalar, buffet infantil, e bar para os pais relaxarem. Planeje a festa dos sonhos do seu filho conosco!',
+	keywords:
+		'entretenimento infantil, diversão para crianças, arena de camas elásticas, guerreiro ninja, parede de escalar, pula-pula, buffet infantil, bar para os pais, festas infantis, eventos para crianças, Maringá',
+	openGraph: {
+		title: 'Divercity Park | Maringá - PR',
+		description:
+			'Oferecemos atrações emocionantes como arena de camas elásticas, guerreiro ninja, parede de escalar e muito mais. Planeje a festa dos sonhos do seu filho conosco!',
+		url: 'https://www.divercitypark.com.br',
+		images: [
+			{
+				url: 'hhttps://www.divercitypark.com.br/_next/image?url=%2Flogo.png&w=640&q=75',
+				width: 620,
+				height: 402,
+				alt: 'Divercity Park',
+			},
+		],
+		type: 'website',
+	},
+	robots: 'index, follow',
 };
 
 export default function RootLayout({
@@ -18,9 +38,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	const currentYear = new Date().getFullYear();
+	const analyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || '';
 	return (
-		<html lang="en">
+		<html lang="pt-BR">
 			<body suppressHydrationWarning className={inter.className} id="topo">
+				<GoogleAnalytics gaId={analyticsId} />
 				<header>
 					<nav>
 						<div className="logo">
@@ -33,18 +55,18 @@ export default function RootLayout({
 							/>
 						</div>
 						<div className="pages">
-							<a href="#topo" className="nav-link active">
+							<Link href="#topo" className="nav-link active">
 								<div>Início</div>
-							</a>
-							<a href="#atracoes" className="nav-link">
+							</Link>
+							<Link href="#atracoes" className="nav-link">
 								<div>Atrações</div>
-							</a>
-							<a href="#orcamento" className="nav-link btn">
+							</Link>
+							<Link href="#orcamento" className="nav-link btn">
 								<div>Orçamento</div>
-							</a>
-							<a href="#contato" className="nav-link">
+							</Link>
+							<Link href="#contato" className="nav-link">
 								<div>Contato</div>
-							</a>
+							</Link>
 							<SocialNetworks />
 						</div>
 					</nav>
@@ -65,12 +87,20 @@ export default function RootLayout({
 							<strong>Segunda a Sábado :</strong> das 10h às 22h
 						</p>
 						<p>
-							<strong>Domingos e feriados :</strong> das 14h às 20h
+							<strong>Domingos e feriados :</strong> das 11h às 20h
 						</p>
 					</div>
 					<div className="location">
-						<h3>Onde Estamos</h3>
-						<p>nibh ante, auctor sit amet - Cep 87013.931 Maringá - Paraná</p>
+						<h3>Onde estamos</h3>
+						<p>
+							<Link
+								target="_blank"
+								href="https://www.google.com.br/maps/search/Av.+Tuiuti,+710+-+Gleba+Patrim%C3%B4nio+Maringa,+Maring%C3%A1+87043-720/@-23.4231537,-51.9107751,17z/data=!3m1!4b1?entry=ttu"
+							>
+								Av. Tuiuti, 710 - Gleba Patrimônio Maringa, Maringá 87043-720
+							</Link>
+						</p>
+						<p>Shopping Cidade Maringá</p>
 					</div>
 					<SocialNetworks title="Redes sociais" />
 				</footer>

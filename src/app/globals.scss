@@ -156,6 +156,9 @@ body {
 
 			p {
 				color: var(--grayText);
+				@media screen and (max-width: 900px) {
+					text-align: center;
+				}
 			}
 		}
 
@@ -165,6 +168,7 @@ body {
 			flex-direction: column;
 			@media screen and (max-width: 900px) {
 				align-items: center;
+				text-align: center;
 			}
 		}
 	}

@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import './_styles.scss';
+import Link from 'next/link';
 
 export default function Hero(): ReactNode {
 	return (
@@ -67,9 +68,9 @@ export default function Hero(): ReactNode {
 					</div>
 				</Swiper>
 				<div style={{ display: 'flex', justifyContent: 'center' }}>
-					<a href="#atracoes">
+					<Link href="#atracoes">
 						<div className="know-more">Saiba mais</div>
-					</a>
+					</Link>
 				</div>
 				<div className="camelo" data-aos="fade-up">
 					<div className="content">
@@ -101,7 +102,7 @@ export default function Hero(): ReactNode {
 						/>
 					</div>
 				</div>
-				<a href="#orcamento" className="hihand">
+				<Link href="#orcamento" className="hihand">
 					<div className="text">Faça sua festa com a gente</div>
 					<div className="hand">
 						<Image
@@ -119,7 +120,7 @@ export default function Hero(): ReactNode {
 							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 						/>
 					</div>
-				</a>
+				</Link>
 			</div>
 			<div className="navbar-border" />
 		</>

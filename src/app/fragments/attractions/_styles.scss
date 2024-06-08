@@ -5,7 +5,7 @@
 	}
 
 	@media screen and (max-width: 900px) {
-		padding: 50px 50px 80px;
+		padding: 50px 30px 80px;
 	}
 	background-image: var(--bg-image);
 	background-position: top left;
@@ -13,6 +13,7 @@
 
 	.banner-row {
 		display: flex;
+		align-items: center;
 		gap: 50px;
 		margin-top: 100px;
 
@@ -24,6 +25,8 @@
 			flex: 1;
 			aspect-ratio: 800/599;
 			position: relative;
+			border-radius: 50px;
+			overflow: hidden;
 		}
 
 		.text {

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import './_styles.scss';
 export default function ContactSection(): ReactNode {
 	const [form, setForm] = useState({
@@ -27,9 +27,9 @@ export default function ContactSection(): ReactNode {
 				fill
 				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 			/>
-			<div className="banner">
+			<div className="banner" style={{ aspectRatio: 1360 / 760 }}>
 				<Image
-					src="https://placehold.co/638x477.png?text=aspect-ratio:1,337"
+					src="/contato.jpeg"
 					alt="banner"
 					fill
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
