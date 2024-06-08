@@ -1,7 +1,6 @@
 'use client';
-
-import Image from 'next/image';
 import { ReactNode, useState } from 'react';
+import Image from 'next/image';
 import './_styles.scss';
 export default function ContactSection(): ReactNode {
 	const [form, setForm] = useState({

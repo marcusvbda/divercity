@@ -41,47 +41,6 @@
     ],
     "react/react-in-jsx-scope": "off",
     "import/no-anonymous-default-export": "off",
-    "react/prop-types": "off",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
-        "pathGroups": [
-          {
-            "pattern": "react",
-            "group": "builtin",
-            "position": "before"
-          },
-          {
-            "pattern": "next/**",
-            "group": "external",
-            "position": "before"
-          },
-          {
-            "pattern": "@mui/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "{components,theme}/**",
-            "group": "internal"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": [
-          "react"
-        ],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ]
+    "react/prop-types": "off"
   }
 }

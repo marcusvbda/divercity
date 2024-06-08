@@ -1,11 +1,13 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { Inter } from 'next/font/google';
 import './globals.scss';
 import Image from 'next/image';
+
+import Link from 'next/link';
+import { Inter } from 'next/font/google';
+import { Metadata } from 'next';
 import BtnUp from '@/components/btnUp';
 import SocialNetworks from '@/components/SocialNetworks';
-import Link from 'next/link';
-import { Metadata } from 'next';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

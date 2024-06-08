@@ -1,8 +1,8 @@
 'use client';
+import { ReactNode, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
-import { ReactNode, useState } from 'react';
 import './_styles.scss';
 const Step1 = ({ form, setForm, step, setStep }: any) => {
 	const handleSubmit = (e: any) => {
