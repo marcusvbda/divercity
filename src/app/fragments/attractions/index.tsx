@@ -26,7 +26,7 @@ export default function Attractions(): ReactNode {
 				</div>
 				<div className="banner">
 					<AspectRatio
-						src="/attractions/cama-elastica.jpeg"
+						src="/attractions/camas-elasticas.jpeg"
 						size={{ width: '100%' }}
 					/>
 				</div>
@@ -85,7 +85,8 @@ export default function Attractions(): ReactNode {
 						delícias enquanto seus filhos se divertem!
 					</div>
 					<div className="subdescription">
-						Pellentesque consequat maximus fringilla. Suspendisse nec neque
+						Celebre momentos inesquecíveis no nosso encantador Buffet Infantil,
+						com deliciosas opções de comidas e bebidas!
 					</div>
 				</div>
 			</div>
