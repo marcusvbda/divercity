@@ -339,7 +339,7 @@ const Review = ({ form, step, setStep }: any) => {
 						{form.qty}
 					</p>
 					<p>
-						<strong>Quantidade de acompanhas: </strong>
+						<strong>Quantidade de crianças: </strong>
 						{form.children}
 					</p>
 					<p>
