@@ -160,6 +160,21 @@
 					}
 				}
 			}
+
+			.form-row {
+				margin-top: 8px;
+				display: grid;
+				grid-template-columns: 1fr 1.5fr;
+				flex-direction: row;
+				gap: 6px;
+				width: 100%;
+				align-items: center;
+
+				label {
+					font-family: 'Poppins', sans-serif;
+					color: var(--secondaryText);
+				}
+			}
 		}
 	}
 }

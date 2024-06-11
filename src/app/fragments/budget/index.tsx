@@ -230,14 +230,24 @@ const Step5 = ({ form, setForm, step, setStep }: any) => {
 		<>
 			<h4>Quanto ao consumo de bebidas ?</h4>
 			<form id="step-5-form" onSubmit={submitHandler}>
-				<label className="label-checkbox">
+				<label className="label-checkbox" style={{ marginBottom: 0 }}>
 					<input
 						type="checkbox"
 						checked={form.ownDrink}
 						onChange={(e) => setForm({ ...form, ownDrink: e.target.checked })}
 					/>
-					Trarei bebidas por conta ?
+					Trarei bebidas por conta ?<br />
 				</label>
+				<small
+					className="text-muted"
+					style={{
+						marginBottom: 20,
+						textAlign: 'left',
+						alignSelf: 'flex-start',
+					}}
+				>
+					Só é permitido bebidas que não temos em nosso bar
+				</small>
 
 				<label className="label-checkbox">
 					<input
@@ -250,9 +260,19 @@ const Step5 = ({ form, setForm, step, setStep }: any) => {
 					/>
 					Já tenho decorador(a) ?
 				</label>
+				<label className="label-checkbox">
+					<input
+						type="checkbox"
+						value="true"
+						checked={form.needIndication}
+						onChange={(e) =>
+							setForm({ ...form, hasDecorator: e.target.checked })
+						}
+					/>
+					Vou precisar de indicação de parceiro fornecedor ?
+				</label>
 				<small>
-					Vale que mesmo que seja necessário fornecer alguma bebida é necessário
-					que parte do consumo seja do nosso bar
+					Reforçando que parte das bebidas devem ser consumidas de nosso bar
 				</small>
 			</form>
 			<div className="btns">
@@ -287,6 +307,123 @@ const Step5 = ({ form, setForm, step, setStep }: any) => {
 	);
 };
 
+const Step6 = ({ form, setForm, step, setStep }: any) => {
+	const submitHandler = (e: any) => {
+		e.preventDefault();
+		setStep(step + 1);
+	};
+
+	return (
+		<>
+			<h4>Quer unir ao orçamento uma estimativa de consumo ?</h4>
+			<form id="step-6-form" onSubmit={submitHandler}>
+				<small>
+					Defina um quantidade estimado de cada item a ser consumido para que
+					possamos fazer um calculo mais próximo da realidade.
+				</small>
+				<div className="form-row">
+					<label>Refrigerante Lata</label>
+					<input
+						type="number"
+						step={1}
+						required
+						value={form.canSodaQty}
+						onChange={(e) => setForm({ ...form, canSodaQty: e.target.value })}
+					/>
+				</div>
+				<div className="form-row">
+					<label>Refrigerante 600ml</label>
+					<input
+						type="number"
+						step={1}
+						required
+						value={form.bottleSodaQty}
+						min={0}
+						onChange={(e) =>
+							setForm({ ...form, bottleSodaQty: e.target.value })
+						}
+					/>
+				</div>
+				<div className="form-row">
+					<label>Suco del vale</label>
+					<input
+						type="number"
+						step={1}
+						required
+						min={0}
+						value={form.juiceQty}
+						onChange={(e) => setForm({ ...form, juiceQty: e.target.value })}
+					/>
+				</div>
+				<div className="form-row">
+					<label>Agua</label>
+					<input
+						type="number"
+						step={1}
+						required
+						value={form.waterQty}
+						onChange={(e) => setForm({ ...form, waterQty: e.target.value })}
+					/>
+				</div>
+				<div className="form-row">
+					<label>Chopp</label>
+					<input
+						type="number"
+						step={1}
+						required
+						min={0}
+						value={form.choppQty}
+						onChange={(e) => setForm({ ...form, choppQty: e.target.value })}
+					/>
+				</div>
+				<div className="form-row">
+					<label>Cerveja long neck</label>
+					<input
+						type="number"
+						step={1}
+						required
+						min={0}
+						value={form.beerQty}
+						onChange={(e) => setForm({ ...form, beerQty: e.target.value })}
+					/>
+				</div>
+				<small>
+					Caso não queira incluir ao orçamento uma estimativa de consumo do bar,
+					deixe o campo em branco ou zero.
+				</small>
+			</form>
+			<div className="btns">
+				<button
+					type="button"
+					className="know-more"
+					onClick={() => setStep(step - 1)}
+				>
+					<div className="arrow-logo">
+						<Image
+							src="/arrow.svg"
+							alt="arrow"
+							fill
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						/>
+					</div>
+					<span>Voltar</span>
+				</button>
+				<button type="submit" className="know-more" form="step-6-form">
+					<span>Continuar</span>
+					<div className="arrow-logo">
+						<Image
+							src="/arrow-r.svg"
+							alt="arrow"
+							fill
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						/>
+					</div>
+				</button>
+			</div>
+		</>
+	);
+};
+
 const Review = ({ form, step, setStep }: any) => {
 	const priceBuffet = parseInt(process.env.NEXT_PUBLIC_PRICE_BUFFET || '0');
 	const pricePerPerson = parseInt(
@@ -295,12 +432,44 @@ const Review = ({ form, step, setStep }: any) => {
 
 	const totalPrice = useMemo(() => {
 		const qty = parseInt(form.children || 0);
-		const total = qty * pricePerPerson + priceBuffet;
+		const totalSoda =
+			((process.env as any).NEXT_PUBLIC_PRICE_SODA_CAN || 0) * form.canSodaQty;
+		const totalBottleSoda =
+			((process.env as any).NEXT_PUBLIC_PRICE_SODA_BOTTLE || 0) *
+			form.bottleSodaQty;
+		const totalJuice =
+			((process.env as any).NEXT_PUBLIC_PRICE_JUICE || 0) * form.juiceQty;
+		const totalWater =
+			((process.env as any).NEXT_PUBLIC_PRICE_WATER || 0) * form.waterQty;
+		const totalChopp =
+			((process.env as any).NEXT_PUBLIC_PRICE_CHOPP || 0) * form.choppQty;
+		const totalBeer =
+			((process.env as any).NEXT_PUBLIC_PRICE_BEER || 0) * form.beerQty;
+		const total =
+			qty * pricePerPerson +
+			priceBuffet +
+			totalSoda +
+			totalBottleSoda +
+			totalJuice +
+			totalWater +
+			totalChopp +
+			totalBeer;
+
 		return total.toLocaleString('pt-BR', {
 			style: 'currency',
 			currency: 'BRL',
 		});
-	}, [form.qty, priceBuffet, pricePerPerson]);
+	}, [
+		form.beerQty,
+		form.bottleSodaQty,
+		form.canSodaQty,
+		form.children,
+		form.choppQty,
+		form.juiceQty,
+		form.waterQty,
+		priceBuffet,
+		pricePerPerson,
+	]);
 
 	const submitHandler = (e: any) => {
 		e.preventDefault();
@@ -315,6 +484,14 @@ const Review = ({ form, step, setStep }: any) => {
 			`*Data:* ${formatedDate}` +
 			`*Tenho decorador(a):* ${form.hasDecorator ? 'Sim' : 'Não'} %0a` +
 			`*Trarei bebidas:* ${form.ownDrink ? 'Sim' : 'Não'} %0a` +
+			`*Preciso de indicação:* ${form.needIndication ? 'Sim' : 'Não'} %0a` +
+			`*Consumo de canhão:* ${form.canSodaQty} %0a` +
+			`*Consumo estimado de latas de refrigerante:* ${form.canSodaQty} %0a` +
+			`*Consumo estimado de sucos del vale:* ${form.juiceQty} %0a` +
+			`*Consumo estimado de cervejas:* ${form.beerQty} %0a` +
+			`*Consumo estimado de garrafas de água:* ${form.waterQty} %0a` +
+			`*Consumo estimado de chopps:* ${form.choppQty} %0a` +
+			`*Consumo estimado de refrigerantes 600ml:* ${form.bottleSodaQty} %0a` +
 			`*Total estimado:* ${totalPrice}`;
 		const url = `https://wa.me/${phone}?text=${message}`;
 		window.open(url, '_blank');
@@ -351,8 +528,36 @@ const Review = ({ form, step, setStep }: any) => {
 						{form.ownDrink ? 'Sim' : 'Não'}
 					</p>
 					<p>
+						<strong>Preciso de indicação: </strong>
+						{form.needIndication ? 'Sim' : 'Não'}
+					</p>
+					<p>
 						<strong>Data: </strong>
 						{new Date(form.date).toLocaleDateString('pt-BR')}
+					</p>
+					<p>
+						<strong>Qtde de refrigerantes lata ( estimativa ): </strong>
+						{form.canSodaQty}
+					</p>
+					<p>
+						<strong>Qtde de refrigerantes 600ml ( estimativa ): </strong>
+						{form.bottleSodaQty}
+					</p>
+					<p>
+						<strong>Qtde de sucos Del Vale ( estimativa ): </strong>
+						{form.juiceQty}
+					</p>
+					<p>
+						<strong>Qtde de garrafas de água ( estimativa ): </strong>
+						{form.waterQty}
+					</p>
+					<p>
+						<strong>Qtde de chopps ( estimativa ): </strong>
+						{form.choppQty}
+					</p>
+					<p>
+						<strong>Qtde de cervejas Long Neck ( estimativa ): </strong>
+						{form.beerQty}
 					</p>
 					<p>
 						<strong>Valor estimado: </strong>
@@ -401,6 +606,13 @@ export default function BudgetSection(): ReactNode {
 		date: '',
 		hasDecorator: false,
 		ownDrink: false,
+		needIndication: false,
+		canSodaQty: 0,
+		bottleSodaQty: 0,
+		juiceQty: 0,
+		choppQty: 0,
+		beerQty: 0,
+		waterQty: 0,
 	});
 	return (
 		<div id="orcamento">
@@ -481,7 +693,15 @@ export default function BudgetSection(): ReactNode {
 							step={step}
 						/>
 					)}
-					{step === 6 && <Review form={form} setStep={setStep} step={step} />}
+					{step === 6 && (
+						<Step6
+							setForm={setForm}
+							form={form}
+							setStep={setStep}
+							step={step}
+						/>
+					)}
+					{step === 7 && <Review form={form} setStep={setStep} step={step} />}
 				</div>
 			</div>
 		</div>
