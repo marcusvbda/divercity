@@ -294,7 +294,7 @@ const Review = ({ form, step, setStep }: any) => {
 	);
 
 	const totalPrice = useMemo(() => {
-		const qty = parseInt(form.qty || 0);
+		const qty = parseInt(form.children || 0);
 		const total = qty * pricePerPerson + priceBuffet;
 		return total.toLocaleString('pt-BR', {
 			style: 'currency',
