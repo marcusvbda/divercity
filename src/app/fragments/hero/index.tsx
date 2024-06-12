@@ -13,11 +13,8 @@ export default function Hero(): ReactNode {
 	return (
 		<>
 			<div id="hero">
-				<video autoPlay muted loop className="hero--video desktop">
+				<video autoPlay muted loop className="hero--video">
 					<source src="video.mp4" type="video/mp4" />
-				</video>
-				<video autoPlay muted loop className="hero--video mobile">
-					<source src="vertical-video.mp4" type="video/mp4" />
 				</video>
 				<div className="hero--content">
 					<Swiper

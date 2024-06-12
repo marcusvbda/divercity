@@ -63,32 +63,13 @@
 
 	position: relative;
 	overflow: hidden;
-
+	height: 662px;
 	video {
-		// height: 662px;
+		object-fit: cover;
 		width: 100%;
-	}
-
-	.hero--video {
-		@media screen and (max-width: 1045px) {
-			&.mobile {
-				display: block;
-			}
-
-			&.desktop {
-				display: none;
-			}
-		}
-
-		@media screen and (min-width: 1046px) {
-			&.mobile {
-				display: none !important;
-			}
-
-			&.desktop {
-				display: block !important;
-			}
-		}
+		height: 100%;
+		position: absolute;
+		object-fit: cover;
 	}
 
 	.hero--content {

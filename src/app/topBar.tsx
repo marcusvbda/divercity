@@ -10,7 +10,6 @@ export default function TopBar() {
 
 	useEffect(() => {
 		const setClass = () => {
-			console.log(window.scrollY);
 			if (window.scrollY >= 150) {
 				setNavbarClass('white');
 			} else {
