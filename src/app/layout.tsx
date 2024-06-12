@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import { Metadata } from 'next';
 import BtnUp from '@/components/btnUp';
-import AspectRatio from '@/components/aspectRatio';
 import SocialNetworkLinks from '@/components/socialNetworkLink';
+import TopBar from './topBar';
 
 const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
@@ -45,28 +45,8 @@ export default function RootLayout({
 		<html lang="pt-BR">
 			<body suppressHydrationWarning className={inter.className} id="topo">
 				<GoogleAnalytics gaId={analyticsId} />
-				<header>
-					<nav>
-						<AspectRatio src="/logo.png" size={{ height: 100 }} />
-						<div className="pages">
-							<Link href="#topo" className="nav-link active">
-								<div>Início</div>
-							</Link>
-							<Link href="#atracoes" className="nav-link">
-								<div>Atrações</div>
-							</Link>
-							<Link href="#orcamento" className="nav-link btn">
-								<div>Orçamento</div>
-							</Link>
-							<Link href="#contato" className="nav-link">
-								<div>Contato</div>
-							</Link>
-							<SocialNetworkLinks />
-						</div>
-					</nav>
-				</header>
+				<TopBar />
 				{children}
-				<BtnUp />
 				<footer>
 					<Image
 						src="/cloud-footer.png"
@@ -98,6 +78,7 @@ export default function RootLayout({
 					</div>
 					<SocialNetworkLinks title="Redes sociais" />
 				</footer>
+				<BtnUp />
 				<div className="subfooter">
 					<div>©{currentYear}, Todos os direitos reservados Divercity</div>
 				</div>

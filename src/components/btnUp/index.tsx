@@ -14,7 +14,7 @@ export default function BtnUp(): ReactNode {
 				setClassName('hidden');
 			}
 		};
-		window.onscroll = () => {
+		document.onscroll = () => {
 			process();
 		};
 

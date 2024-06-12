@@ -266,7 +266,7 @@ const Step5 = ({ form, setForm, step, setStep }: any) => {
 						value="true"
 						checked={form.needIndication}
 						onChange={(e) =>
-							setForm({ ...form, hasDecorator: e.target.checked })
+							setForm({ ...form, needIndication: e.target.checked })
 						}
 					/>
 					Vou precisar de indicação de parceiro fornecedor ?
@@ -327,6 +327,7 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 						type="number"
 						step={1}
 						required
+						min={0}
 						value={form.canSodaQty}
 						onChange={(e) => setForm({ ...form, canSodaQty: e.target.value })}
 					/>
@@ -337,8 +338,8 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 						type="number"
 						step={1}
 						required
-						value={form.bottleSodaQty}
 						min={0}
+						value={form.bottleSodaQty}
 						onChange={(e) =>
 							setForm({ ...form, bottleSodaQty: e.target.value })
 						}
@@ -361,6 +362,7 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 						type="number"
 						step={1}
 						required
+						min={0}
 						value={form.waterQty}
 						onChange={(e) => setForm({ ...form, waterQty: e.target.value })}
 					/>
