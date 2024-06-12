@@ -72,6 +72,28 @@
 		object-fit: cover;
 	}
 
+	.hero--video {
+		@media screen and (max-width: 1045px) {
+			&.mobile {
+				display: block;
+			}
+
+			&.desktop {
+				display: none;
+			}
+		}
+
+		@media screen and (min-width: 1046px) {
+			&.mobile {
+				display: none !important;
+			}
+
+			&.desktop {
+				display: block !important;
+			}
+		}
+	}
+
 	.hero--content {
 		padding: 150px 0;
 		background-color: #00000079;
