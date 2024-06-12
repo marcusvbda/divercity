@@ -64,7 +64,7 @@ export default function Attractions(): ReactNode {
 				</div>
 				<div className="banner">
 					<AspectRatio
-						src="/attractions/escalada.webp"
+						src="/attractions/escalada.jpeg"
 						size={{ width: '100%' }}
 					/>
 				</div>
