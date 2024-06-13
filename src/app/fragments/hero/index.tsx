@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './_styles.scss';
@@ -13,13 +13,33 @@ export default function Hero(): ReactNode {
 	return (
 		<>
 			<div id="hero">
-				<video autoPlay muted loop className="hero--video desktop">
+				<video
+					autoPlay
+					muted
+					loop
+					className="hero--video desktop"
+					style={
+						{
+							'--bg': `url(/hero-placeholder.png)`,
+						} as CSSProperties
+					}
+				>
 					<source
 						src="https://github.com/marcusvbda/divercity/raw/master/public/video.mp4"
 						type="video/mp4"
 					/>
 				</video>
-				<video autoPlay muted loop className="hero--video mobile">
+				<video
+					autoPlay
+					muted
+					loop
+					className="hero--video mobile"
+					style={
+						{
+							'--bg': `url(/hero-placeholder.png)`,
+						} as CSSProperties
+					}
+				>
 					<source
 						src="https://github.com/marcusvbda/divercity/raw/master/public/vertical-video.mp4"
 						type="video/mp4"

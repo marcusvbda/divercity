@@ -429,7 +429,7 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 const Review = ({ form, step, setStep }: any) => {
 	const priceBuffet = parseInt(process.env.NEXT_PUBLIC_PRICE_BUFFET || '0');
 	const pricePerPerson = parseInt(
-		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON || '0',
+		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON || '0'
 	);
 
 	const totalPrice = useMemo(() => {
@@ -487,7 +487,6 @@ const Review = ({ form, step, setStep }: any) => {
 			`*Tenho decorador(a):* ${form.hasDecorator ? 'Sim' : 'Não'} %0a` +
 			`*Trarei bebidas:* ${form.ownDrink ? 'Sim' : 'Não'} %0a` +
 			`*Preciso de indicação:* ${form.needIndication ? 'Sim' : 'Não'} %0a` +
-			`*Consumo de canhão:* ${form.canSodaQty} %0a` +
 			`*Consumo estimado de latas de refrigerante:* ${form.canSodaQty} %0a` +
 			`*Consumo estimado de sucos del vale:* ${form.juiceQty} %0a` +
 			`*Consumo estimado de cervejas:* ${form.beerQty} %0a` +
@@ -504,6 +503,10 @@ const Review = ({ form, step, setStep }: any) => {
 		<>
 			<h4>Solicitar ao responsável o orçamento</h4>
 			<form id="step-review-form" onSubmit={submitHandler}>
+				<small>
+					Considerando a suas respostas abaixo este seria um valor{' '}
+					<strong>aproximado</strong> de quanto custaria o seu evento.
+				</small>
 				<div className="review">
 					<p>
 						<strong>Nome: </strong>
@@ -584,7 +587,7 @@ const Review = ({ form, step, setStep }: any) => {
 					<span>Voltar</span>
 				</button>
 				<button type="submit" className="know-more" form="step-review-form">
-					<span>Solicitar</span>
+					<span>Solicitar contato</span>
 					<div className="arrow-logo">
 						<AspectRatio
 							src="/arrow-r.svg"
@@ -626,20 +629,15 @@ export default function BudgetSection(): ReactNode {
 				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 			/>
 			<div className="card">
-				<h3>Faça sua festa conosco</h3>
+				<h3>Orce sua festa conosco</h3>
 				<div className="description">
-					Planeje a festa dos sonhos do seu filho no DIVERCITY PARK! Oferecemos
-					pacotes completos que incluem acesso a todas as nossas atrações
-					emocionantes, como a Arena de Camas Elásticas, Guerreiro Ninja, Parede
-					de Escalar, Pula-Pula e muito mais. Nosso buffet infantil oferece uma
-					seleção deliciosa e saudável de comidas e bebidas, garantindo que as
-					crianças tenham energia para se divertir o dia todo. Enquanto os
-					pequenos se divertem, os pais podem relaxar e aproveitar no nosso bar,
-					que oferece uma variedade de bebidas e um ambiente confortável para
-					socializar. Nossa equipe dedicada cuida de todos os detalhes, desde a
-					decoração temática até a organização das atividades, para que você
-					possa aproveitar cada momento sem preocupações. Faça da festa do seu
-					filho um evento inesquecível conosco!
+					Planeje a festa dos sonhos do seu filho no DIVERCITY PARK! Nossos
+					pacotes incluem acesso a todas as atrações, como Arena de Camas
+					Elásticas, Guerreiro Ninja, Parede de Escalar e Pula-Pula. O buffet
+					infantil oferece comidas saudáveis e deliciosas. Enquanto as crianças
+					se divertem, os pais relaxam no nosso bar. Nossa equipe cuida da
+					decoração e organização das atividades. Faça da festa do seu filho um
+					evento inesquecível!
 				</div>
 				<div className="subscription">
 					Celebre a festa perfeita com nossas atrações emocionantes, buffet
