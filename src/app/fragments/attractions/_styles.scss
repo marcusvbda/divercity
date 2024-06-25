@@ -1,4 +1,4 @@
-#atracoes {
+#attractions {
 	padding: 100px 100px 200px;
 	@media screen and (max-width: 1100px) {
 		padding: 80px 80px 100px;
@@ -16,6 +16,10 @@
 		align-items: center;
 		gap: 50px;
 		margin-top: 100px;
+
+		&.mb-4 {
+			margin-bottom: 200px;
+		}
 
 		@media screen and (max-width: 1100px) {
 			flex-direction: column;
@@ -49,6 +53,10 @@
 				@media screen and (max-width: 1100px) {
 					text-align: center;
 				}
+
+				&.center {
+					text-align: center;
+				}
 			}
 
 			.description {
@@ -56,6 +64,56 @@
 				font-size: 1.1rem;
 				font-weight: 400;
 				color: var(--mutedText);
+
+				&.center {
+					text-align: center;
+				}
+
+				.cards {
+					display: flex;
+					align-items: center;
+					gap: 20px;
+					justify-content: center;
+					padding: 10px 0 30px;
+					flex-wrap: nowrap;
+
+					.card {
+						border-radius: 10px;
+						padding: 5px 10px;
+						font-weight: 500;
+						font-size: 1.1rem;
+						display: flex;
+						flex-direction: column;
+						width: 150px;
+						background-color: #f7fffd;
+						border: 1px solid #89c6ba;
+						color: #34d2aa;
+						.price {
+							color: #808e88;
+						}
+
+						&.secondary {
+							background-color: #f6f1e5;
+							color: #ec6830;
+							border: 1px dotted #ec6830;
+						}
+
+						&.tertiary {
+							background-color: #d1e8ff;
+							color: #0a76e3;
+							border: 1px dotted #0a76e3;
+						}
+
+						.title {
+							font-size: 1.5rem;
+						}
+
+						small {
+							margin-top: 8px;
+							opacity: 0.8;
+						}
+					}
+				}
 			}
 
 			.subdescription {
@@ -63,6 +121,11 @@
 				font-size: 1.2rem;
 				font-weight: 400;
 				color: var(--grayText);
+				&.center {
+					text-align: left;
+					width: min(600px, 100%);
+					align-self: center;
+				}
 			}
 		}
 	}

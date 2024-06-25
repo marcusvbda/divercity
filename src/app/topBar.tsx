@@ -30,6 +30,9 @@ export default function TopBar() {
 					<Link href="#topo" className="nav-link active">
 						<div>Início</div>
 					</Link>
+					<Link href="#precos" className="nav-link">
+						<div>Preços</div>
+					</Link>
 					<Link href="#atracoes" className="nav-link">
 						<div>Atrações</div>
 					</Link>

@@ -8,9 +8,87 @@ import AspectRatio from '@/components/aspectRatio';
 export default function Attractions(): ReactNode {
 	return (
 		<div
-			id="atracoes"
+			id="attractions"
 			style={{ '--bg-image': `url('/desenho.png')` } as CSSProperties}
 		>
+			<div className="banner-row mb-4" id="precos">
+				<div className="text">
+					<h3 className="center">PROMOÇÃO DE FÉRIAS</h3>
+					<div className="description center">
+						<p>Segunda-feira a quinta-feira (exceto feriados)</p>
+						<div className="cards">
+							<div className="card">
+								<p className="title">30 min</p>
+								<p className="price">R$ 40,00</p>
+								<small>Acompanhante</small>
+								<p className="price">R$ 10,00</p>
+							</div>
+							<div className="card secondary">
+								<p className="title">60 min</p>
+								<p className="price">R$ 50,00</p>
+								<small>Acompanhante</small>
+								<p className="price">R$ 15,00</p>
+							</div>
+							<div className="card tertiary">
+								<p className="title">Passe livre</p>
+								<p className="price">R$ 60,00</p>
+								<small>Acompanhante</small>
+								<p className="price">R$ 20,00</p>
+							</div>
+						</div>
+						<p>Sexta, Sábado, Domingo e Feriados</p>
+						<div className="cards">
+							<div className="card">
+								<p className="title">30 min</p>
+								<p className="price">R$45,00</p>
+								<small>Acompanhante</small>
+								<p className="price">R$10,00</p>
+							</div>
+							<div className="card secondary">
+								<p className="title">60 min</p>
+								<p className="price">R$60,00</p>
+								<small>Acompanhante</small>
+								<p className="price">R$15,00</p>
+							</div>
+							<div className="card tertiary">
+								<p className="title">Passe livre</p>
+								<p className="price">R$ 80,00</p>
+								<small>Acompanhante</small>
+								<p className="price">R$ 20,00</p>
+							</div>
+						</div>
+					</div>
+					<div className="subdescription center">
+						<p>
+							<strong>Crianças até 4 anos: </strong>
+							<small>
+								Obrigatório o acompanhamento de um adulto. O acompanhante não
+								paga.
+							</small>
+						</p>
+						<p>
+							<strong>Pessoas com Necessidades Especiais (PNE): </strong>
+							<small>
+								Obrigatório o acompanhamento de um adulto. O acompanhante não
+								paga.
+							</small>
+						</p>
+						<p>
+							<strong>Crianças a partir de 5 anos: </strong>
+							<small>
+								Acompanhante opcional. Se o acompanhante entrar na área de
+								brinquedos com a criança, ele paga a taxa de acompanhante
+								correspondente.
+							</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div className="banner-row" id="atracoes">
+				<div className="text">
+					<h3 className="center">ATRAÇÕES</h3>
+				</div>
+			</div>
 			<div className="banner-row">
 				<div className="text">
 					<h3>Arena de Camas Elásticas</h3>
