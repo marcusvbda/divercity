@@ -84,7 +84,7 @@ const Step2 = ({ form, setForm, step, setStep }: any) => {
 
 	return (
 		<>
-			<h4>Quantos pessoas ao todo ?</h4>
+			<h4>Quantas pessoas ao todo ?</h4>
 			<form onSubmit={handleSubmit} id="step-2-form">
 				<input
 					type="number"
@@ -428,8 +428,12 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 
 const Review = ({ form, step, setStep }: any) => {
 	const priceBuffet = parseInt(process.env.NEXT_PUBLIC_PRICE_BUFFET || '0');
-	const pricePerPerson = parseInt(
+	const pricePerKid = parseInt(
 		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON || '0'
+	);
+
+	const pricePerKidWeekend = parseInt(
+		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON_WEEKEND || '0'
 	);
 
 	const totalPrice = useMemo(() => {
@@ -447,8 +451,9 @@ const Review = ({ form, step, setStep }: any) => {
 			((process.env as any).NEXT_PUBLIC_PRICE_CHOPP || 0) * form.choppQty;
 		const totalBeer =
 			((process.env as any).NEXT_PUBLIC_PRICE_BEER || 0) * form.beerQty;
-		const total =
-			qty * pricePerPerson +
+		const totalKid = qty * pricePerKid;
+		const totalKidWeekend = qty * pricePerKidWeekend;
+		const totalExtra =
 			priceBuffet +
 			totalSoda +
 			totalBottleSoda +
@@ -457,10 +462,16 @@ const Review = ({ form, step, setStep }: any) => {
 			totalChopp +
 			totalBeer;
 
-		return total.toLocaleString('pt-BR', {
-			style: 'currency',
-			currency: 'BRL',
-		});
+		return {
+			total: (totalKid + totalExtra).toLocaleString('pt-BR', {
+				style: 'currency',
+				currency: 'BRL',
+			}),
+			totalWeekend: (totalKidWeekend + totalExtra).toLocaleString('pt-BR', {
+				style: 'currency',
+				currency: 'BRL',
+			}),
+		};
 	}, [
 		form.beerQty,
 		form.bottleSodaQty,
@@ -470,7 +481,6 @@ const Review = ({ form, step, setStep }: any) => {
 		form.juiceQty,
 		form.waterQty,
 		priceBuffet,
-		pricePerPerson,
 	]);
 
 	const submitHandler = (e: any) => {
@@ -493,7 +503,8 @@ const Review = ({ form, step, setStep }: any) => {
 			`*Consumo estimado de garrafas de água:* ${form.waterQty} %0a` +
 			`*Consumo estimado de chopps:* ${form.choppQty} %0a` +
 			`*Consumo estimado de refrigerantes 600ml:* ${form.bottleSodaQty} %0a` +
-			`*Total estimado:* ${totalPrice}`;
+			`*Total estimado:* ${totalPrice.total} %0a` +
+			`*Total estimado (para sexta-feira,sábado, domingo ou feriados):* ${totalPrice.totalWeekend}`;
 		const url = `https://wa.me/${phone}?text=${message}`;
 		window.open(url, '_blank');
 		setStep(0);
@@ -566,7 +577,13 @@ const Review = ({ form, step, setStep }: any) => {
 					</p>
 					<p>
 						<strong>Valor estimado: </strong>
-						{totalPrice}
+						{totalPrice.total}
+					</p>
+					<p>
+						<strong>
+							Valor estimado (para sexta-feira,sábado, domingo ou feriados):{' '}
+						</strong>
+						{totalPrice.totalWeekend}
 					</p>
 				</div>
 			</form>

@@ -61,7 +61,7 @@ export default function RootLayout({
 							<strong>Segunda a Sábado :</strong> das 10h às 22h
 						</p>
 						<p>
-							<strong>Domingos e feriados :</strong> das 11h às 20h
+							<strong>Domingos e feriados :</strong> das 12h às 20h
 						</p>
 					</div>
 					<div className="location">
