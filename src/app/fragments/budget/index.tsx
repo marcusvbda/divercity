@@ -230,25 +230,6 @@ const Step5 = ({ form, setForm, step, setStep }: any) => {
 		<>
 			<h4>Quanto ao consumo de bebidas ?</h4>
 			<form id="step-5-form" onSubmit={submitHandler}>
-				<label className="label-checkbox" style={{ marginBottom: 0 }}>
-					<input
-						type="checkbox"
-						checked={form.ownDrink}
-						onChange={(e) => setForm({ ...form, ownDrink: e.target.checked })}
-					/>
-					Trarei bebidas por conta ?<br />
-				</label>
-				<small
-					className="text-muted"
-					style={{
-						marginBottom: 20,
-						textAlign: 'left',
-						alignSelf: 'flex-start',
-					}}
-				>
-					Só é permitido bebidas que não temos em nosso bar
-				</small>
-
 				<label className="label-checkbox">
 					<input
 						type="checkbox"
@@ -495,7 +476,6 @@ const Review = ({ form, step, setStep }: any) => {
 			`*Quantidade de crianças:* ${form.children} %0a` +
 			`*Data:* ${formatedDate}` +
 			`*Tenho decorador(a):* ${form.hasDecorator ? 'Sim' : 'Não'} %0a` +
-			`*Trarei bebidas:* ${form.ownDrink ? 'Sim' : 'Não'} %0a` +
 			`*Preciso de indicação:* ${form.needIndication ? 'Sim' : 'Não'} %0a` +
 			`*Consumo estimado de latas de refrigerante:* ${form.canSodaQty} %0a` +
 			`*Consumo estimado de sucos del vale:* ${form.juiceQty} %0a` +
@@ -538,10 +518,6 @@ const Review = ({ form, step, setStep }: any) => {
 					<p>
 						<strong>Tenho decorador(a): </strong>
 						{form.hasDecorator ? 'Sim' : 'Não'}
-					</p>
-					<p>
-						<strong>Trarei bebidas: </strong>
-						{form.ownDrink ? 'Sim' : 'Não'}
 					</p>
 					<p>
 						<strong>Preciso de indicação: </strong>
@@ -627,7 +603,6 @@ export default function BudgetSection(): ReactNode {
 		children: 25,
 		date: '',
 		hasDecorator: false,
-		ownDrink: false,
 		needIndication: false,
 		canSodaQty: 0,
 		bottleSodaQty: 0,
