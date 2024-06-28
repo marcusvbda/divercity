@@ -434,8 +434,8 @@ const Review = ({ form, step, setStep }: any) => {
 			((process.env as any).NEXT_PUBLIC_PRICE_BEER || 0) * form.beerQty;
 		const totalKid = qty * pricePerKid;
 		const totalKidWeekend = qty * pricePerKidWeekend;
-		const totalExtra =
-			priceBuffet +
+
+		const totalBar =
 			totalSoda +
 			totalBottleSoda +
 			totalJuice +
@@ -444,11 +444,30 @@ const Review = ({ form, step, setStep }: any) => {
 			totalBeer;
 
 		return {
-			total: (totalKid + totalExtra).toLocaleString('pt-BR', {
+			total: (totalKid + totalBar + priceBuffet).toLocaleString('pt-BR', {
 				style: 'currency',
 				currency: 'BRL',
 			}),
-			totalWeekend: (totalKidWeekend + totalExtra).toLocaleString('pt-BR', {
+			totalWeekend: (totalKidWeekend + totalBar + priceBuffet).toLocaleString(
+				'pt-BR',
+				{
+					style: 'currency',
+					currency: 'BRL',
+				}
+			),
+			totalBar: totalBar.toLocaleString('pt-BR', {
+				style: 'currency',
+				currency: 'BRL',
+			}),
+			totalKid: totalKid.toLocaleString('pt-BR', {
+				style: 'currency',
+				currency: 'BRL',
+			}),
+			totalKidWeekend: totalKidWeekend.toLocaleString('pt-BR', {
+				style: 'currency',
+				currency: 'BRL',
+			}),
+			priceBuffet: priceBuffet.toLocaleString('pt-BR', {
 				style: 'currency',
 				currency: 'BRL',
 			}),
@@ -476,15 +495,13 @@ const Review = ({ form, step, setStep }: any) => {
 			`*Quantidade de crianças:* ${form.children} %0a` +
 			`*Data:* ${formatedDate}` +
 			`*Tenho decorador(a):* ${form.hasDecorator ? 'Sim' : 'Não'} %0a` +
-			`*Preciso de indicação:* ${form.needIndication ? 'Sim' : 'Não'} %0a` +
-			`*Consumo estimado de latas de refrigerante:* ${form.canSodaQty} %0a` +
-			`*Consumo estimado de sucos del vale:* ${form.juiceQty} %0a` +
-			`*Consumo estimado de cervejas:* ${form.beerQty} %0a` +
-			`*Consumo estimado de garrafas de água:* ${form.waterQty} %0a` +
-			`*Consumo estimado de chopps:* ${form.choppQty} %0a` +
-			`*Consumo estimado de refrigerantes 600ml:* ${form.bottleSodaQty} %0a` +
-			`*Total estimado:* ${totalPrice.total} %0a` +
-			`*Total estimado (para sexta-feira,sábado, domingo ou feriados):* ${totalPrice.totalWeekend}`;
+			`*Preciso de indicação de fornecedores:* ${
+				form.needIndication ? 'Sim' : 'Não'
+			} %0a` +
+			`*Consumo estimado do bar:* ${totalPrice.totalBar} %0a` +
+			`*Custo dos passaportes:* ${totalPrice.totalKid} (${totalPrice.totalKidWeekend} para sexta-feira, sábado, domingo e feriados)%0a` +
+			`*Custo do salão:* ${totalPrice.priceBuffet} %0a` +
+			`*Total estimado:* ${totalPrice.total} (${totalPrice.totalWeekend} para sexta-feira, sábado, domingo e feriados )`;
 		const url = `https://wa.me/${phone}?text=${message}`;
 		window.open(url, '_blank');
 		setStep(0);
@@ -528,38 +545,22 @@ const Review = ({ form, step, setStep }: any) => {
 						{new Date(form.date).toLocaleDateString('pt-BR')}
 					</p>
 					<p>
-						<strong>Qtde de refrigerantes lata ( estimativa ): </strong>
-						{form.canSodaQty}
+						<strong>Consumo estimado do bar : </strong>
+						{totalPrice.totalBar}
 					</p>
 					<p>
-						<strong>Qtde de refrigerantes 600ml ( estimativa ): </strong>
-						{form.bottleSodaQty}
+						<strong>Custo dos passaportes : </strong>
+						{totalPrice.totalKid} ({totalPrice.totalKidWeekend} para
+						sexta-feira, sábado, domingo e feriados)
 					</p>
 					<p>
-						<strong>Qtde de sucos Del Vale ( estimativa ): </strong>
-						{form.juiceQty}
+						<strong>Custo do salão : </strong>
+						{totalPrice.priceBuffet}
 					</p>
 					<p>
-						<strong>Qtde de garrafas de água ( estimativa ): </strong>
-						{form.waterQty}
-					</p>
-					<p>
-						<strong>Qtde de chopps ( estimativa ): </strong>
-						{form.choppQty}
-					</p>
-					<p>
-						<strong>Qtde de cervejas Long Neck ( estimativa ): </strong>
-						{form.beerQty}
-					</p>
-					<p>
-						<strong>Valor estimado: </strong>
-						{totalPrice.total}
-					</p>
-					<p>
-						<strong>
-							Valor estimado (para sexta-feira,sábado, domingo ou feriados):{' '}
-						</strong>
-						{totalPrice.totalWeekend}
+						<strong>Total estimado: </strong>
+						{totalPrice.total} ({totalPrice.totalWeekend} para sexta-feira,
+						sábado, domingo e feriados)
 					</p>
 				</div>
 			</form>
@@ -595,21 +596,21 @@ const Review = ({ form, step, setStep }: any) => {
 };
 
 export default function BudgetSection(): ReactNode {
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(7);
 	const [form, setForm] = useState({
-		name: '',
-		email: '',
+		name: 'teste@teste.com',
+		email: 'teste',
 		qty: 40,
-		children: 25,
-		date: '',
+		children: 12,
+		date: '2024-12-12',
 		hasDecorator: false,
 		needIndication: false,
 		canSodaQty: 0,
-		bottleSodaQty: 0,
-		juiceQty: 0,
+		bottleSodaQty: 15,
+		juiceQty: 15,
 		choppQty: 0,
 		beerQty: 0,
-		waterQty: 0,
+		waterQty: 15,
 	});
 	return (
 		<div id="orcamento">
