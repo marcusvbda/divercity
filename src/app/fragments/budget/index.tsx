@@ -596,21 +596,21 @@ const Review = ({ form, step, setStep }: any) => {
 };
 
 export default function BudgetSection(): ReactNode {
-	const [step, setStep] = useState(7);
+	const [step, setStep] = useState(0);
 	const [form, setForm] = useState({
-		name: 'teste@teste.com',
-		email: 'teste',
+		name: '',
+		email: '',
 		qty: 40,
-		children: 12,
-		date: '2024-12-12',
+		children: 20,
+		date: '',
 		hasDecorator: false,
 		needIndication: false,
 		canSodaQty: 0,
-		bottleSodaQty: 15,
-		juiceQty: 15,
+		bottleSodaQty: 0,
+		juiceQty: 0,
 		choppQty: 0,
 		beerQty: 0,
-		waterQty: 15,
+		waterQty: 0,
 	});
 	return (
 		<div id="orcamento">
