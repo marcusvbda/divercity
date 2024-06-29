@@ -688,7 +688,7 @@ const Review = ({ form, step, setStep }: any) => {
 };
 
 export default function BudgetSection(): ReactNode {
-	const [step, setStep] = useState(4);
+	const [step, setStep] = useState(0);
 	const [form, setForm] = useState({
 		name: '',
 		email: '',
