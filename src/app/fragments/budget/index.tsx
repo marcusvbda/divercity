@@ -202,7 +202,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 		if (currentYear === year) {
 			setMonth(currentMonth);
 			return Array.from(
-				{ length: 12 - currentMonth },
+				{ length: 13 - currentMonth },
 				(_, i) => i + currentMonth
 			);
 		}
