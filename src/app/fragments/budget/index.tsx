@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
@@ -170,22 +170,122 @@ const Step3 = ({ form, setForm, step, setStep }: any) => {
 };
 
 const Step4 = ({ setForm, form, step, setStep }: any) => {
+	const currentYear = new Date().getFullYear();
+	const currentMonth = new Date().getMonth() + 1;
+	const [year, setYear] = useState(currentYear);
+	const years = Array.from({ length: 3 }, (_, i) => currentYear + i);
+	const [month, setMonth] = useState(currentMonth);
+	const [loading, setLoading] = useState(true);
+	const [freeDates, setFreeDates] = useState([]);
+	const [day, setDay] = useState('');
+
+	const monthsTranslation = useMemo(
+		() => [
+			'Janeiro',
+			'Fevereiro',
+			'Março',
+			'Abril',
+			'Maio',
+			'Junho',
+			'Julho',
+			'Agosto',
+			'Setembro',
+			'Outubro',
+			'Novembro',
+			'Dezembro',
+		],
+		[]
+	);
+
+	const months = useMemo(() => {
+		setDay('');
+		if (currentYear === year) {
+			setMonth(currentMonth);
+			return Array.from(
+				{ length: 12 - currentMonth },
+				(_, i) => i + currentMonth
+			);
+		}
+		setMonth(1);
+		return Array.from({ length: 12 }, (_, i) => i + 1);
+	}, [year]);
+
 	const submitHandler = (e: any) => {
 		e.preventDefault();
 		setStep(step + 1);
 	};
 
+	useEffect(() => {
+		setLoading(true);
+		fetch(`/api/scheduler/free-dates?year=${year}&month=${month}`)
+			.then((res) => res.json())
+			.then((data) => {
+				setFreeDates(data.days || []);
+				setLoading(false);
+			});
+	}, [month]);
+
+	useEffect(() => {
+		const item = freeDates.find((item: any) => item.date === day);
+		setForm({ ...form, date: item });
+	}, [day]);
+
 	return (
 		<>
 			<h4>Qual é a melhor data para sua festa?</h4>
 			<form id="step-4-form" onSubmit={submitHandler}>
-				<input
+				<div className="selection-date">
+					<select
+						value={year}
+						onChange={(e) => setYear(parseInt(e.target.value))}
+						required
+					>
+						{years.map((year) => (
+							<option key={year} value={year}>
+								{year}
+							</option>
+						))}
+					</select>
+					<select
+						value={month}
+						onChange={(e) => setMonth(parseInt(e.target.value))}
+						required
+					>
+						{months.map((month) => (
+							<option key={month} value={month}>
+								{monthsTranslation[month - 1]}
+							</option>
+						))}
+					</select>
+					<select
+						value={day}
+						onChange={(e) => setDay(e.target.value)}
+						required
+						disabled={loading}
+					>
+						{loading ? (
+							<option value="">Carregando...</option>
+						) : (
+							<>
+								<option value="">Datas disponíveis</option>
+								{freeDates
+									.filter((x: any) => x.available)
+									.map((freeDate: any, i) => (
+										<option key={i} value={freeDate.date}>
+											{freeDate.dayOfWeek}, {freeDate.formatedDate}
+										</option>
+									))}
+							</>
+						)}
+					</select>
+				</div>
+				{/* <input
 					type="date"
 					placeholder="Data da festa"
 					value={form.date}
 					onChange={(e) => setForm({ ...form, date: e.target.value })}
 					required
-				/>
+				/> */}
 				<small>escolha uma data para sua festa</small>
 			</form>
 			<div className="btns">
@@ -485,7 +585,6 @@ const Review = ({ form, step, setStep }: any) => {
 
 	const submitHandler = (e: any) => {
 		e.preventDefault();
-		const formatedDate = new Date(form.date).toLocaleDateString('pt-BR');
 		const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
 		const message =
 			`Oi, gostaria de orçar uma festa. Segue os detalhes abaixo. %0a  %0a` +
@@ -493,7 +592,7 @@ const Review = ({ form, step, setStep }: any) => {
 			`*Email:* ${form.email} %0a` +
 			`*Quantidade de pessoas:* ${form.qty} %0a` +
 			`*Quantidade de crianças:* ${form.children} %0a` +
-			`*Data:* ${formatedDate}` +
+			`*Data:* ${form.date.dayOfWeek}, ${form.date.formatedDate}  %0a` +
 			`*Tenho decorador(a):* ${form.hasDecorator ? 'Sim' : 'Não'} %0a` +
 			`*Preciso de indicação de fornecedores:* ${
 				form.needIndication ? 'Sim' : 'Não'
@@ -542,7 +641,7 @@ const Review = ({ form, step, setStep }: any) => {
 					</p>
 					<p>
 						<strong>Data: </strong>
-						{new Date(form.date).toLocaleDateString('pt-BR')}
+						{form.date.dayOfWeek}, {form.date.formatedDate}
 					</p>
 					<p>
 						<strong>Consumo estimado do bar : </strong>
@@ -602,7 +701,14 @@ export default function BudgetSection(): ReactNode {
 		email: '',
 		qty: 40,
 		children: 20,
-		date: '',
+		date: {
+			available: true,
+			date: '2024-07-01',
+			dayOfWeek: 'Segunda',
+			formatedDate: '01/07/2024',
+			isWeekend: false,
+			positionInWeek: 1,
+		},
 		hasDecorator: false,
 		needIndication: false,
 		canSodaQty: 0,
