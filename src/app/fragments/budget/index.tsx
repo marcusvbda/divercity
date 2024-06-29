@@ -626,15 +626,15 @@ export default function BudgetSection(): ReactNode {
 				<div className="description">
 					Planeje a festa dos sonhos do seu filho no DIVERCITY PARK! Nossos
 					pacotes incluem acesso a todas as atrações, como Arena de Camas
-					Elásticas, Guerreiro Ninja, Parede de Escalar e Pula-Pula. O buffet
-					infantil oferece comidas saudáveis e deliciosas. Enquanto as crianças
-					se divertem, os pais relaxam no nosso bar. Nossa equipe cuida da
+					Elásticas, Guerreiro Ninja, Parede de Escalar e Pula-Pula. O salão de
+					festas oferece comidas saudáveis e deliciosas. Enquanto as crianças se
+					divertem, os pais relaxam no nosso bar. Nossa equipe cuida da
 					decoração e organização das atividades. Faça da festa do seu filho um
 					evento inesquecível!
 				</div>
 				<div className="subscription">
-					Celebre a festa perfeita com nossas atrações emocionantes, buffet
-					infantil delicioso e um bar aconchegante para os pais!
+					Celebre a festa perfeita com nossas atrações emocionantes, salão para
+					festas e um bar aconchegante para os pais!
 				</div>
 
 				<div className="form">

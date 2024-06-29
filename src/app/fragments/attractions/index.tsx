@@ -155,16 +155,16 @@ export default function Attractions(): ReactNode {
 					/>
 				</div>
 				<div className="text">
-					<h3>Buffet Infantil</h3>
+					<h3>Salão de Festas Infantis</h3>
 					<div className="description">
-						Nosso buffet infantil oferece uma seleção deliciosa e nutritiva de
-						comidas e bebidas. Temos opções para todos os gostos, incluindo
-						pratos especiais para aniversários e eventos. Venha saborear nossas
+						Nosso Salão oferece uma seleção deliciosa e nutritiva de comidas e
+						bebidas. Temos opções para todos os gostos, incluindo pratos
+						especiais para aniversários e eventos. Venha saborear nossas
 						delícias enquanto seus filhos se divertem!
 					</div>
 					<div className="subdescription">
-						Celebre momentos inesquecíveis no nosso encantador Buffet Infantil,
-						com deliciosas opções de comidas e bebidas!
+						Celebre momentos inesquecíveis no nosso encantador Salão de festas
+						Infantis, com deliciosas opções de comidas e bebidas!
 					</div>
 				</div>
 			</div>
