@@ -26,6 +26,7 @@ const getFreeDates = async (data: any) => {
 		const auxDate = new Date(year, month - 1, day);
 		const dayOfWeek = auxDate.getDay();
 		const aux = {
+			day: auxDate.toDateString().split(' ')[2],
 			date: auxDate.toISOString().split('T')[0],
 			formatedDate: auxDate.toLocaleDateString('pt-BR'),
 			available: true,

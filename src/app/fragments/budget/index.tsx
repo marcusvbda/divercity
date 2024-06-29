@@ -272,20 +272,13 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 									.filter((x: any) => x.available)
 									.map((freeDate: any, i) => (
 										<option key={i} value={freeDate.date}>
-											{freeDate.dayOfWeek}, {freeDate.formatedDate}
+											{freeDate.day}, {freeDate.dayOfWeek}
 										</option>
 									))}
 							</>
 						)}
 					</select>
 				</div>
-				{/* <input
-					type="date"
-					placeholder="Data da festa"
-					value={form.date}
-					onChange={(e) => setForm({ ...form, date: e.target.value })}
-					required
-				/> */}
 				<small>escolha uma data para sua festa</small>
 			</form>
 			<div className="btns">
@@ -695,7 +688,7 @@ const Review = ({ form, step, setStep }: any) => {
 };
 
 export default function BudgetSection(): ReactNode {
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(4);
 	const [form, setForm] = useState({
 		name: '',
 		email: '',
