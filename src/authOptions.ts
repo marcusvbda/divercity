@@ -10,10 +10,19 @@ export const authOptions: NextAuthOptions = {
 			clientId: process.env.AUTH0_CLIENT_ID,
 			clientSecret: process.env.AUTH0_CLIENT_SECRET,
 			issuer: process.env.AUTH0_ISSUER,
+			authorization: {
+				params: {
+					prompt: 'login',
+				},
+			},
 		} as any),
 	],
 	pages: {
 		signIn: '/auth/signin',
-		signOut: '/auth/signout',
+	},
+	events: {
+		signOut: (user) => {
+			console.log('Saindo do sistema');
+		},
 	},
 };
