@@ -4,7 +4,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
 import './_styles.scss';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import AspectRatio from '@/components/aspectRatio';
+import 'react-datepicker/dist/react-datepicker.css';
+import { ptBR } from 'date-fns/locale';
+import 'react-datepicker/dist/react-datepicker.css';
+registerLocale('pt-BR', ptBR);
 
 const Step0 = ({ form, setForm, step, setStep }: any) => {
 	const handleSubmit = (e: any) => {
@@ -170,45 +175,20 @@ const Step3 = ({ form, setForm, step, setStep }: any) => {
 };
 
 const Step4 = ({ setForm, form, step, setStep }: any) => {
-	const currentYear = new Date().getFullYear();
-	const currentMonth = new Date().getMonth() + 1;
-	const [year, setYear] = useState(currentYear);
-	const years = Array.from({ length: 3 }, (_, i) => currentYear + i);
-	const [month, setMonth] = useState(currentMonth);
 	const [loading, setLoading] = useState(true);
 	const [freeDates, setFreeDates] = useState([]);
-	const [day, setDay] = useState('');
+	const [selectedDate, setSelectedDate] = useState(null);
 
-	const monthsTranslation = useMemo(
-		() => [
-			'Janeiro',
-			'Fevereiro',
-			'Março',
-			'Abril',
-			'Maio',
-			'Junho',
-			'Julho',
-			'Agosto',
-			'Setembro',
-			'Outubro',
-			'Novembro',
-			'Dezembro',
-		],
-		[]
-	);
+	const isDateAvailable = (date: any) => {
+		const availableDates = freeDates.map((x: any) =>
+			new Date(x.date).toDateString()
+		);
+		const isAvailable = availableDates.some(
+			(availableDate) => availableDate === date.toDateString()
+		);
 
-	const months = useMemo(() => {
-		setDay('');
-		if (currentYear === year) {
-			setMonth(currentMonth);
-			return Array.from(
-				{ length: 13 - currentMonth },
-				(_, i) => i + currentMonth
-			);
-		}
-		setMonth(1);
-		return Array.from({ length: 12 }, (_, i) => i + 1);
-	}, [year]);
+		return isAvailable;
+	};
 
 	const submitHandler = (e: any) => {
 		e.preventDefault();
@@ -216,6 +196,13 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 	};
 
 	useEffect(() => {
+		const day =
+			selectedDate && (selectedDate as any).toISOString().split('T')[0];
+		const item = freeDates.find((item: any) => item.date === day);
+		setForm({ ...form, date: item });
+	}, [selectedDate]);
+
+	const fetchDates = (year: any, month: any) => {
 		setLoading(true);
 		fetch(`/api/scheduler/free-dates?year=${year}&month=${month}`)
 			.then((res) => res.json())
@@ -223,61 +210,33 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 				setFreeDates(data.days || []);
 				setLoading(false);
 			});
-	}, [month]);
+	};
+
+	const handleMonthChange = (date: any) => {
+		fetchDates(date.getFullYear(), date.getMonth() + 1);
+	};
 
 	useEffect(() => {
-		const item = freeDates.find((item: any) => item.date === day);
-		setForm({ ...form, date: item });
-	}, [day]);
+		const currentYear = new Date().getFullYear();
+		const currentMonth = new Date().getMonth() + 1;
+		fetchDates(currentYear, currentMonth);
+	}, []);
 
 	return (
 		<>
 			<h4>Qual é a melhor data para sua festa?</h4>
 			<form id="step-4-form" onSubmit={submitHandler}>
 				<div className="selection-date">
-					<select
-						value={year}
-						onChange={(e) => setYear(parseInt(e.target.value))}
-						required
-					>
-						{years.map((year) => (
-							<option key={year} value={year}>
-								{year}
-							</option>
-						))}
-					</select>
-					<select
-						value={month}
-						onChange={(e) => setMonth(parseInt(e.target.value))}
-						required
-					>
-						{months.map((month) => (
-							<option key={month} value={month}>
-								{monthsTranslation[month - 1]}
-							</option>
-						))}
-					</select>
-					<select
-						value={day}
-						onChange={(e) => setDay(e.target.value)}
-						required
+					<DatePicker
+						selected={selectedDate}
+						onChange={(date) => setSelectedDate(date as any)}
+						filterDate={isDateAvailable}
+						onMonthChange={handleMonthChange}
+						placeholderText="Selecione a data"
+						inline
+						locale="pt-BR"
 						disabled={loading}
-					>
-						{loading ? (
-							<option value="">Carregando...</option>
-						) : (
-							<>
-								<option value="">Datas disponíveis</option>
-								{freeDates
-									.filter((x: any) => x.available)
-									.map((freeDate: any, i) => (
-										<option key={i} value={freeDate.date}>
-											{freeDate.day}, {freeDate.dayOfWeek}
-										</option>
-									))}
-							</>
-						)}
-					</select>
+					/>
 				</div>
 				<small>escolha uma data para sua festa</small>
 			</form>
