@@ -27,8 +27,9 @@ export const getFreeDates = async (data: any) => {
 	if (!year || !month) return new Response('Not found', { status: 404 });
 
 	const today = new Date();
-	const startDay =
-		today.getMonth() + 1 === month && today.getFullYear() === year
+	const startDay = data?.startDay
+		? data.startDay
+		: today.getMonth() + 1 === month && today.getFullYear() === year
 			? today.getDate() + daysToSchedule
 			: 1;
 
@@ -36,7 +37,7 @@ export const getFreeDates = async (data: any) => {
 	const days = [];
 	const daysOptions = [
 		'Domingo',
-		'Segunda',
+		'Segunda-feira',
 		'Terça-feira',
 		'Quarta-feira',
 		'Quinta-feira',
@@ -49,8 +50,11 @@ export const getFreeDates = async (data: any) => {
 		const dayOfWeek = auxDate.getDay();
 		const date = auxDate.toISOString().split('T')[0];
 		const schedule = schedules.find((x: any) => date === x.date);
+		const formatedAux = date.split('-');
 		const aux = {
-			day: auxDate.toDateString().split(' ')[2],
+			day: formatedAux[2],
+			month: formatedAux[1],
+			year: formatedAux[0],
 			date,
 			formatedDate: auxDate.toLocaleDateString('pt-BR'),
 			available: schedule ? false : true,

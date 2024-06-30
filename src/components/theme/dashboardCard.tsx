@@ -61,7 +61,6 @@ const DashboardCard = ({
 					{children}
 				</CardContent>
 			)}
-
 			{middlecontent}
 			{footer}
 		</Card>

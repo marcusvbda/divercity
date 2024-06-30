@@ -6,6 +6,8 @@ import DashboardCard from '@/components/theme/dashboardCard';
 import { Box } from '@mui/material';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { format } from 'date-fns';
+import NoDateSelected from './fragments/noDateSelected';
+import ScheduleForm from './fragments/scheduleForm';
 
 registerLocale('pt-BR', ptBR);
 
@@ -53,23 +55,39 @@ export default function AdminPage(): ReactNode {
 	}, [date, dates]);
 
 	return (
-		<DashboardCard title="Agenda do salão de festas">
+		<DashboardCard
+			title={
+				!focusedSchedule
+					? 'Agenda do salão de festas'
+					: `${(focusedSchedule as any).dayOfWeek}, ${(focusedSchedule as any).formatedDate}`
+			}
+		>
 			<Box
 				sx={{
 					display: 'flex',
-					flexDirection: { xs: 'column', sm: 'row' },
+					flexDirection: { sm: 'column', md: 'row' },
 				}}
 			>
-				<DatePicker
-					inline
-					selected={date}
-					locale="pt-BR"
-					onChange={(date: any) => setDate(date)}
-					highlightDates={highlightDates as any}
-					onMonthChange={handleMonthChange}
-					disabled={loading}
-				/>
-				<Box>{!focusedSchedule ? <></> : JSON.stringify(focusedSchedule)}</Box>
+				{!focusedSchedule && (
+					<DatePicker
+						inline
+						selected={date}
+						locale="pt-BR"
+						onChange={(date: any) => setDate(date)}
+						highlightDates={highlightDates as any}
+						onMonthChange={handleMonthChange}
+						disabled={loading}
+					/>
+				)}
+				{!focusedSchedule ? (
+					<NoDateSelected />
+				) : (
+					<ScheduleForm
+						item={focusedSchedule}
+						onSave={() => handleMonthChange(date)}
+						onCancel={() => setDate(null)}
+					/>
+				)}
 			</Box>
 		</DashboardCard>
 	);
