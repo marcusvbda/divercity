@@ -106,10 +106,10 @@ export default function Hero(): ReactNode {
 							<div className="know-more">Saiba mais</div>
 						</Link>
 					</div>
-					<div className="camelo" data-aos="fade-up">
+					<div className="camelo">
 						<AspectRatio src="/camelo.png" size={{ height: 200 }} />
 					</div>
-					<div className="balls" data-aos="zoom-in-down">
+					<div className="balls">
 						<AspectRatio src="/balls.png" size={{ height: 60 }} />
 					</div>
 					<Link href="#orcamento" className="hihand">
