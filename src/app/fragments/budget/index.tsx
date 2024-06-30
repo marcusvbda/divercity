@@ -5,10 +5,11 @@ import 'swiper/css/navigation';
 import Image from 'next/image';
 import './_styles.scss';
 import DatePicker, { registerLocale } from 'react-datepicker';
+import { format } from 'date-fns';
 import AspectRatio from '@/components/aspectRatio';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ptBR } from 'date-fns/locale';
-import 'react-datepicker/dist/react-datepicker.css';
+
 registerLocale('pt-BR', ptBR);
 
 const Step0 = ({ form, setForm, step, setStep }: any) => {
@@ -24,6 +25,7 @@ const Step0 = ({ form, setForm, step, setStep }: any) => {
 				<input
 					type="email"
 					placeholder="Seu email ..."
+					autoFocus
 					required
 					value={form.email}
 					onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -60,6 +62,7 @@ const Step1 = ({ form, setForm, step, setStep }: any) => {
 					type="text"
 					placeholder="Seu nome ..."
 					required
+					autoFocus
 					value={form.name}
 					onChange={(e) => setForm({ ...form, name: e.target.value })}
 				/>
@@ -95,6 +98,7 @@ const Step2 = ({ form, setForm, step, setStep }: any) => {
 					type="number"
 					placeholder="Pessoas"
 					step={1}
+					autoFocus
 					value={form.qty}
 					onChange={(e) => setForm({ ...form, qty: parseInt(e.target.value) })}
 					max={40}
@@ -177,7 +181,9 @@ const Step3 = ({ form, setForm, step, setStep }: any) => {
 const Step4 = ({ setForm, form, step, setStep }: any) => {
 	const [loading, setLoading] = useState(true);
 	const [freeDates, setFreeDates] = useState([]);
-	const [selectedDate, setSelectedDate] = useState(null);
+	const [selectedDate, setSelectedDate] = useState(
+		form.date && new Date(form.date.date)
+	);
 
 	const isDateAvailable = (date: any) => {
 		const availableDates = freeDates.map((x: any) =>
@@ -196,8 +202,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 	};
 
 	useEffect(() => {
-		const day =
-			selectedDate && (selectedDate as any).toISOString().split('T')[0];
+		const day = selectedDate && format(selectedDate, 'yyyy-MM-dd');
 		const item = freeDates.find((item: any) => item.date === day);
 		setForm({ ...form, date: item });
 	}, [selectedDate]);
@@ -217,8 +222,12 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 	};
 
 	useEffect(() => {
-		const currentYear = new Date().getFullYear();
-		const currentMonth = new Date().getMonth() + 1;
+		const currentYear = selectedDate
+			? selectedDate.getFullYear()
+			: new Date().getFullYear();
+		const currentMonth = selectedDate
+			? selectedDate.getMonth() + 1
+			: new Date().getMonth() + 1;
 		fetchDates(currentYear, currentMonth);
 	}, []);
 
