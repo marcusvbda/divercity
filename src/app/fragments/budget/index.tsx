@@ -12,6 +12,29 @@ import { ptBR } from 'date-fns/locale';
 
 registerLocale('pt-BR', ptBR);
 
+const defaultForm = {
+	name: '',
+	email: '',
+	qty: 40,
+	children: 20,
+	date: {
+		available: true,
+		date: '2024-07-01',
+		dayOfWeek: 'Segunda',
+		formatedDate: '01/07/2024',
+		isWeekend: false,
+		positionInWeek: 1,
+	},
+	hasDecorator: false,
+	needIndication: false,
+	canSodaQty: 0,
+	bottleSodaQty: 0,
+	juiceQty: 0,
+	choppQty: 0,
+	beerQty: 0,
+	waterQty: 0,
+};
+
 const Step0 = ({ form, setForm, step, setStep }: any) => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -208,6 +231,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 	}, [selectedDate]);
 
 	const fetchDates = (year: any, month: any) => {
+		setSelectedDate(null);
 		setLoading(true);
 		fetch(`/api/scheduler/free-dates?year=${year}&month=${month}`)
 			.then((res) => res.json())
@@ -222,13 +246,13 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 	};
 
 	useEffect(() => {
-		const currentYear = selectedDate
+		const year = selectedDate
 			? selectedDate.getFullYear()
 			: new Date().getFullYear();
-		const currentMonth = selectedDate
+		const month = selectedDate
 			? selectedDate.getMonth() + 1
 			: new Date().getMonth() + 1;
-		fetchDates(currentYear, currentMonth);
+		fetchDates(year, month);
 	}, []);
 
 	return (
@@ -468,7 +492,7 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 	);
 };
 
-const Review = ({ form, step, setStep }: any) => {
+const Review = ({ setForm, form, step, setStep }: any) => {
 	const priceBuffet = parseInt(process.env.NEXT_PUBLIC_PRICE_BUFFET || '0');
 	const pricePerKid = parseInt(
 		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON || '0'
@@ -565,6 +589,7 @@ const Review = ({ form, step, setStep }: any) => {
 		const url = `https://wa.me/${phone}?text=${message}`;
 		window.open(url, '_blank');
 		setStep(0);
+		setForm(defaultForm);
 	};
 
 	return (
@@ -657,28 +682,8 @@ const Review = ({ form, step, setStep }: any) => {
 
 export default function BudgetSection(): ReactNode {
 	const [step, setStep] = useState(0);
-	const [form, setForm] = useState({
-		name: '',
-		email: '',
-		qty: 40,
-		children: 20,
-		date: {
-			available: true,
-			date: '2024-07-01',
-			dayOfWeek: 'Segunda',
-			formatedDate: '01/07/2024',
-			isWeekend: false,
-			positionInWeek: 1,
-		},
-		hasDecorator: false,
-		needIndication: false,
-		canSodaQty: 0,
-		bottleSodaQty: 0,
-		juiceQty: 0,
-		choppQty: 0,
-		beerQty: 0,
-		waterQty: 0,
-	});
+	const [form, setForm] = useState(defaultForm);
+
 	return (
 		<div id="orcamento">
 			<Image
@@ -761,7 +766,14 @@ export default function BudgetSection(): ReactNode {
 							step={step}
 						/>
 					)}
-					{step === 7 && <Review form={form} setStep={setStep} step={step} />}
+					{step === 7 && (
+						<Review
+							setForm={setForm}
+							form={form}
+							setStep={setStep}
+							step={step}
+						/>
+					)}
 				</div>
 			</div>
 		</div>
