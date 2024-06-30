@@ -12,6 +12,7 @@ export const authOptions: NextAuthOptions = {
 			issuer: process.env.AUTH0_ISSUER,
 		} as any),
 	],
+	pages: {
+		signIn: '/login',
+	},
 };
-
-// console.log(authOptions);
