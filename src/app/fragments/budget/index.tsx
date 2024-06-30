@@ -254,6 +254,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 			? selectedDate.getMonth() + 1
 			: new Date().getMonth() + 1;
 		fetchDates(year, month);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
