@@ -228,6 +228,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 		const day = selectedDate && format(selectedDate, 'yyyy-MM-dd');
 		const item = freeDates.find((item: any) => item.date === day);
 		setForm({ ...form, date: item });
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedDate]);
 
 	const fetchDates = (year: any, month: any) => {
@@ -565,6 +566,8 @@ const Review = ({ setForm, form, step, setStep }: any) => {
 		form.choppQty,
 		form.juiceQty,
 		form.waterQty,
+		pricePerKid,
+		pricePerKidWeekend,
 		priceBuffet,
 	]);
 

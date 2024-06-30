@@ -31,7 +31,7 @@ export default function ContactSection(): ReactNode {
 				<AspectRatio src="/contato.jpeg" size={{ width: '100%' }} />
 			</div>
 			<div className="form">
-				<h3>Nos mande um "oi"</h3>
+				<h3>Nos mande um OI</h3>
 				<div className="description">
 					Preencha nosso formulário ou fale conosco em algum de nossos meios de
 					contato!
