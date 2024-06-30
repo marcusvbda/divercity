@@ -1,4 +1,4 @@
-import { getFreeDates } from '../../scheduler/route';
+import { getFreeDates } from '../../scheduler/functions';
 
 const getAllDates = async (data: any) => {
 	const currentYear = new Date().getFullYear();
