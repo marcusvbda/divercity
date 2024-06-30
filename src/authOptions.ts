@@ -20,9 +20,4 @@ export const authOptions: NextAuthOptions = {
 	pages: {
 		signIn: '/auth/signin',
 	},
-	events: {
-		signOut: (user) => {
-			console.log('Saindo do sistema');
-		},
-	},
 };
