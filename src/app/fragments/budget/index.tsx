@@ -17,14 +17,7 @@ const defaultForm = {
 	email: '',
 	qty: 40,
 	children: 20,
-	date: {
-		available: true,
-		date: '2024-07-01',
-		dayOfWeek: 'Segunda',
-		formatedDate: '01/07/2024',
-		isWeekend: false,
-		positionInWeek: 1,
-	},
+	date: null,
 	hasDecorator: false,
 	needIndication: false,
 	canSodaQty: 0,
@@ -266,9 +259,10 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 						inline
 						locale="pt-BR"
 						disabled={loading}
+						required
 					/>
 				</div>
-				<small>escolha uma data para sua festa</small>
+				{!selectedDate && <small>escolha uma data para sua festa</small>}
 			</form>
 			<div className="btns">
 				<button
@@ -286,7 +280,12 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 					</div>
 					<span>Voltar</span>
 				</button>
-				<button type="submit" className="know-more" form="step-4-form">
+				<button
+					type="submit"
+					className="know-more"
+					form="step-4-form"
+					disabled={!selectedDate}
+				>
 					<span>Continuar</span>
 					<div className="arrow-logo">
 						<Image

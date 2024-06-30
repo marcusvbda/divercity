@@ -2,15 +2,11 @@ import { getFreeDates } from '../../scheduler/route';
 
 const getAllDates = async (data: any) => {
 	const currentYear = new Date().getFullYear();
+	const currentMonth = new Date().getMonth() + 1;
 	const year = parseInt(data.year || data.query.get('year') || currentYear);
-	const dates = [];
-
-	for (let month = 1; month <= 12; month++) {
-		const result = await getFreeDates({ year, month });
-		dates.push(result);
-	}
-
-	return dates;
+	const month = parseInt(data.month || data.query.get('month') || currentMonth);
+	const result = await getFreeDates({ year, month });
+	return result;
 };
 
 const handler = async (req: any) => {
