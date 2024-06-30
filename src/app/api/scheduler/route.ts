@@ -1,4 +1,4 @@
-const getFreeDates = async (data: any) => {
+export const getFreeDates = async (data: any) => {
 	const daysToSchedule = parseInt(process.env.DAYS_TO_SCHEDULE || (2 as any));
 	const year = parseInt(data.year || data.query.get('year'));
 	const month = parseInt(data.month || data.query.get('month'));
@@ -30,6 +30,7 @@ const getFreeDates = async (data: any) => {
 			date: auxDate.toISOString().split('T')[0],
 			formatedDate: auxDate.toLocaleDateString('pt-BR'),
 			available: true,
+			schedule: null,
 			isWeekend: [0, 5, 6].includes(dayOfWeek), // 0 = segunda, 5 = sexta, 6 = sabado
 			dayOfWeek: daysOptions[dayOfWeek],
 			positionInWeek: dayOfWeek,
@@ -39,32 +40,9 @@ const getFreeDates = async (data: any) => {
 	return { year, month, today, days };
 };
 
-const getAllDates = async (data: any) => {
-	const currentYear = new Date().getFullYear();
-	const year = parseInt(data.year || data.query.get('year') || currentYear);
-	const dates = [];
-
-	for (let month = 1; month <= 12; month++) {
-		const result = await getFreeDates({ year, month });
-		dates.push(result);
-	}
-
-	return dates;
-};
-
-const actionMap = {
-	'[GET]free-dates': getFreeDates,
-	'[GET]all-dates': getAllDates,
-};
-
-const handler = async (req: any, { params }: any) => {
-	const { action } = params;
+const handler = async (req: any) => {
 	const query = new URL(req.url).searchParams;
-	const method = req.method;
-	const actionName = `[${method}]${action}`;
-	const handler = (actionMap as any)[actionName as string] || null;
-	if (!handler) return new Response('Not found', { status: 404 });
-	const result = await handler({ query });
+	const result = await getFreeDates({ query });
 	return Response.json(result);
 };
 

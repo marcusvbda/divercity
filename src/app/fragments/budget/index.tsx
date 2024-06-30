@@ -205,17 +205,13 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 	const [loading, setLoading] = useState(true);
 	const [freeDates, setFreeDates] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(
-		form.date && new Date(form.date.date)
+		form.date && new Date(form.date.date),
 	);
 
 	const isDateAvailable = (date: any) => {
-		const availableDates = freeDates.map((x: any) =>
-			new Date(x.date).toDateString()
-		);
-		const isAvailable = availableDates.some(
-			(availableDate) => availableDate === date.toDateString()
-		);
-
+		const isAvailable =
+			(freeDates.find((x: any) => x.date === format(date, 'yyyy-MM-dd')) as any)
+				?.available || false;
 		return isAvailable;
 	};
 
@@ -228,13 +224,13 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 		const day = selectedDate && format(selectedDate, 'yyyy-MM-dd');
 		const item = freeDates.find((item: any) => item.date === day);
 		setForm({ ...form, date: item });
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedDate]);
 
 	const fetchDates = (year: any, month: any) => {
 		setSelectedDate(null);
 		setLoading(true);
-		fetch(`/api/scheduler/free-dates?year=${year}&month=${month}`)
+		fetch(`/api/scheduler?year=${year}&month=${month}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setFreeDates(data.days || []);
@@ -254,7 +250,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 			? selectedDate.getMonth() + 1
 			: new Date().getMonth() + 1;
 		fetchDates(year, month);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -267,7 +263,6 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 						onChange={(date) => setSelectedDate(date as any)}
 						filterDate={isDateAvailable}
 						onMonthChange={handleMonthChange}
-						placeholderText="Selecione a data"
 						inline
 						locale="pt-BR"
 						disabled={loading}
@@ -497,11 +492,11 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 const Review = ({ setForm, form, step, setStep }: any) => {
 	const priceBuffet = parseInt(process.env.NEXT_PUBLIC_PRICE_BUFFET || '0');
 	const pricePerKid = parseInt(
-		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON || '0'
+		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON || '0',
 	);
 
 	const pricePerKidWeekend = parseInt(
-		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON_WEEKEND || '0'
+		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON_WEEKEND || '0',
 	);
 
 	const totalPrice = useMemo(() => {
@@ -540,7 +535,7 @@ const Review = ({ setForm, form, step, setStep }: any) => {
 				{
 					style: 'currency',
 					currency: 'BRL',
-				}
+				},
 			),
 			totalBar: totalBar.toLocaleString('pt-BR', {
 				style: 'currency',
