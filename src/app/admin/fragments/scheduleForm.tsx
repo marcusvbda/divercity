@@ -690,20 +690,9 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 														variant="outlined"
 														value={newDrink.qty}
 														onChange={(e) =>
-															Swal.fire({
-																title: 'Confirmação!',
-																text: 'Adicionar ?',
-																icon: 'warning',
-																showCancelButton: true,
-																confirmButtonText: 'Sim',
-																cancelButtonText: 'Não',
-															}).then(async (result) => {
-																if (result.isConfirmed) {
-																	setNewDrink({
-																		...newDrink,
-																		qty: parseInt(e.target.value),
-																	});
-																}
+															setNewDrink({
+																...newDrink,
+																qty: parseInt(e.target.value),
 															})
 														}
 													/>
