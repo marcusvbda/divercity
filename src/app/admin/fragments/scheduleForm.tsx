@@ -63,9 +63,46 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 		alert('ainda não implementado');
 	};
 
-	const downloadInfo = (e: any, type: string) => {
+	const downloadInfo = (e: any, tableId: string) => {
+		const filename = `${form.day}-${form.month}-${form.year}-${tableId}.csv`;
 		e.preventDefault();
-		alert('ainda não implementado');
+		const table = document.getElementById(tableId) as HTMLTableElement;
+		if (!table) {
+			console.error('Table not found');
+			return;
+		}
+
+		let csvContent = '';
+		const rows = table.querySelectorAll('tr');
+
+		rows.forEach((row, rowIndex) => {
+			const cols = row.querySelectorAll('td, th');
+			const rowData: string[] = [];
+
+			cols.forEach((col, colIndex) => {
+				if (!col.classList.contains('ignore-on-export')) {
+					if (rowIndex === 0 && col.classList.contains('value')) {
+						return;
+					}
+					const data = col.textContent?.replace(/"/g, '""') || '';
+					rowData.push(`"${data}"`);
+				}
+			});
+
+			csvContent += rowData.join(',') + '\n';
+		});
+
+		const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+		const link = document.createElement('a');
+		if (link.download !== undefined) {
+			const url = URL.createObjectURL(blob);
+			link.setAttribute('href', url);
+			link.setAttribute('download', filename);
+			link.style.visibility = 'hidden';
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
 	};
 
 	const formatPhone = (e: any) => {
@@ -362,6 +399,7 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 							<FormControl fullWidth sx={{ marginTop: 2, marginBottom: 4 }}>
 								<label>Lista de convidados ({form.guests.length})</label>
 								<table
+									id="guests-table"
 									style={{
 										width: '100%',
 										border: '1px solid #cacaca',
@@ -390,6 +428,7 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 												Nome
 											</th>
 											<th
+												className="ignore-on-export"
 												style={{
 													textAlign: 'left',
 													width: 100,
@@ -419,6 +458,7 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 													{item.name}
 												</td>
 												<td
+													className="ignore-on-export"
 													style={{
 														padding: 10,
 														textAlign: 'center',
@@ -428,11 +468,22 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 													<Button
 														variant="contained"
 														onClick={() => {
-															setForm({
-																...form,
-																guests: form.guests.filter(
-																	(d: any) => d.id !== item.id,
-																),
+															Swal.fire({
+																title: 'Confirmação!',
+																text: 'Excluir ?',
+																icon: 'warning',
+																showCancelButton: true,
+																confirmButtonText: 'Sim',
+																cancelButtonText: 'Não',
+															}).then(async (result) => {
+																if (result.isConfirmed) {
+																	setForm({
+																		...form,
+																		guests: form.guests.filter(
+																			(d: any) => d.id !== item.id,
+																		),
+																	});
+																}
 															});
 														}}
 													>
@@ -442,7 +493,10 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 											</tr>
 										))}
 										<tr>
-											<td style={{ textAlign: 'left', padding: 10 }}>
+											<td
+												style={{ textAlign: 'left', padding: 10 }}
+												className="ignore-on-export"
+											>
 												<FormControl fullWidth>
 													<InputLabel>Tipo</InputLabel>
 													<Select
@@ -458,7 +512,10 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 													</Select>
 												</FormControl>
 											</td>
-											<td style={{ textAlign: 'left', padding: 10 }}>
+											<td
+												style={{ textAlign: 'left', padding: 10 }}
+												className="ignore-on-export"
+											>
 												<FormControl fullWidth>
 													<TextField
 														size="small"
@@ -473,22 +530,36 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 													/>
 												</FormControl>
 											</td>
-											<td style={{ padding: 10, textAlign: 'center' }}>
+											<td
+												style={{ padding: 10, textAlign: 'center' }}
+												className="ignore-on-export"
+											>
 												<Button
 													variant="outlined"
 													onClick={() => {
-														setForm({
-															...form,
-															guests: [
-																...form.guests,
-																{
-																	name: newGuest.name || 'sem nome',
-																	type: newGuest.type || 'adulto',
-																	id: generateUniqueId(),
-																},
-															],
+														Swal.fire({
+															title: 'Confirmação!',
+															text: 'Adicionar ?',
+															icon: 'warning',
+															showCancelButton: true,
+															confirmButtonText: 'Sim',
+															cancelButtonText: 'Não',
+														}).then(async (result) => {
+															if (result.isConfirmed) {
+																setForm({
+																	...form,
+																	guests: [
+																		...form.guests,
+																		{
+																			name: newGuest.name || 'sem nome',
+																			type: newGuest.type || 'adulto',
+																			id: generateUniqueId(),
+																		},
+																	],
+																});
+																setNewGuest(newGuestDefault);
+															}
 														});
-														setNewGuest(newGuestDefault);
 													}}
 												>
 													Adicionar
@@ -503,7 +574,10 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 									<a href="#" onClick={(e: any) => askInfo(e, 'guests')}>
 										Cobrar informações sobre convidados
 									</a>
-									<a href="#" onClick={(e: any) => downloadInfo(e, 'guests')}>
+									<a
+										href="#"
+										onClick={(e: any) => downloadInfo(e, 'guests-table')}
+									>
 										Baixar lista de convidados
 									</a>
 								</div>
@@ -511,6 +585,7 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 							<FormControl fullWidth sx={{ marginTop: 2, marginBottom: 4 }}>
 								<label>Lista de bebidas ({form.drinks.length})</label>
 								<table
+									id="drinks-table"
 									style={{
 										width: '100%',
 										border: '1px solid #cacaca',
@@ -539,6 +614,7 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 												Nome
 											</th>
 											<th
+												className="ignore-on-export"
 												style={{
 													textAlign: 'left',
 													width: 100,
@@ -568,6 +644,7 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 													{item.name}
 												</td>
 												<td
+													className="ignore-on-export"
 													style={{
 														padding: 10,
 														textAlign: 'center',
@@ -577,11 +654,22 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 													<Button
 														variant="contained"
 														onClick={() => {
-															setForm({
-																...form,
-																drinks: form.drinks.filter(
-																	(d: any) => d.name !== item.name,
-																),
+															Swal.fire({
+																title: 'Confirmação!',
+																text: 'Excluir ?',
+																icon: 'warning',
+																showCancelButton: true,
+																confirmButtonText: 'Sim',
+																cancelButtonText: 'Não',
+															}).then(async (result) => {
+																if (result.isConfirmed) {
+																	setForm({
+																		...form,
+																		drinks: form.drinks.filter(
+																			(d: any) => d.name !== item.name,
+																		),
+																	});
+																}
 															});
 														}}
 													>
@@ -591,7 +679,10 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 											</tr>
 										))}
 										<tr>
-											<td style={{ textAlign: 'left', padding: 10 }}>
+											<td
+												style={{ textAlign: 'left', padding: 10 }}
+												className="ignore-on-export"
+											>
 												<FormControl fullWidth>
 													<TextField
 														size="small"
@@ -599,15 +690,29 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 														variant="outlined"
 														value={newDrink.qty}
 														onChange={(e) =>
-															setNewDrink({
-																...newDrink,
-																qty: parseInt(e.target.value),
+															Swal.fire({
+																title: 'Confirmação!',
+																text: 'Adicionar ?',
+																icon: 'warning',
+																showCancelButton: true,
+																confirmButtonText: 'Sim',
+																cancelButtonText: 'Não',
+															}).then(async (result) => {
+																if (result.isConfirmed) {
+																	setNewDrink({
+																		...newDrink,
+																		qty: parseInt(e.target.value),
+																	});
+																}
 															})
 														}
 													/>
 												</FormControl>
 											</td>
-											<td style={{ textAlign: 'left', padding: 10 }}>
+											<td
+												style={{ textAlign: 'left', padding: 10 }}
+												className="ignore-on-export"
+											>
 												<FormControl fullWidth>
 													<TextField
 														size="small"
@@ -619,22 +724,36 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 													/>
 												</FormControl>
 											</td>
-											<td style={{ padding: 10, textAlign: 'center' }}>
+											<td
+												style={{ padding: 10, textAlign: 'center' }}
+												className="ignore-on-export"
+											>
 												<Button
 													variant="outlined"
 													onClick={() => {
-														setForm({
-															...form,
-															drinks: [
-																...form.drinks,
-																{
-																	name: newDrink.name || 'sem nome',
-																	qty: newDrink.qty || 0,
-																	id: generateUniqueId(),
-																},
-															],
+														Swal.fire({
+															title: 'Confirmação!',
+															text: 'Adicionar ?',
+															icon: 'warning',
+															showCancelButton: true,
+															confirmButtonText: 'Sim',
+															cancelButtonText: 'Não',
+														}).then(async (result) => {
+															if (result.isConfirmed) {
+																setForm({
+																	...form,
+																	drinks: [
+																		...form.drinks,
+																		{
+																			name: newDrink.name || 'sem nome',
+																			qty: newDrink.qty || 0,
+																			id: generateUniqueId(),
+																		},
+																	],
+																});
+																setNewDrink(newDrinkDefault);
+															}
 														});
-														setNewDrink(newDrinkDefault);
 													}}
 												>
 													Adicionar
@@ -649,7 +768,10 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 									<a href="#" onClick={(e: any) => askInfo(e, 'drinks')}>
 										Cobrar informações sobre bebidas
 									</a>
-									<a href="#" onClick={(e: any) => downloadInfo(e, 'drinks')}>
+									<a
+										href="#"
+										onClick={(e: any) => downloadInfo(e, 'drinks-table')}
+									>
 										Baixar lista de bebidas
 									</a>
 								</div>

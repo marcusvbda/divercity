@@ -89,7 +89,7 @@ export default function AdminPage(): ReactNode {
 					>
 						<Typography variant="h5">
 							{loading
-								? 'Carregando...'
+								? 'Carregando dados...'
 								: 'Selecione a data que deseja visualizar'}
 						</Typography>
 					</Box>
