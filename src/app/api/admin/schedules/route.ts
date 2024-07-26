@@ -28,12 +28,11 @@ export async function DELETE(req: any) {
 export async function POST(req: any) {
 	const body = await req.json();
 	const payload = {
+		...body,
 		day: parseInt(body.day),
 		month: parseInt(body.month),
 		year: parseInt(body.year),
-		description: body.description,
 	};
-
 	await addDoc(collection(db, 'schedules'), payload);
 	return Response.json({ success: true });
 }

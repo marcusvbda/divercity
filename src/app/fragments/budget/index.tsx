@@ -41,7 +41,6 @@ const Step0 = ({ form, setForm, step, setStep }: any) => {
 				<input
 					type="email"
 					placeholder="Seu email ..."
-					autoFocus
 					required
 					value={form.email}
 					onChange={(e) => setForm({ ...form, email: e.target.value })}

@@ -3,10 +3,9 @@ import { ptBR } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import DashboardCard from '@/components/theme/dashboardCard';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { format } from 'date-fns';
-import NoDateSelected from './fragments/noDateSelected';
 import ScheduleForm from './fragments/scheduleForm';
 
 registerLocale('pt-BR', ptBR);
@@ -80,12 +79,26 @@ export default function AdminPage(): ReactNode {
 					/>
 				)}
 				{!focusedSchedule ? (
-					<NoDateSelected />
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							padding: '30px 20px',
+							flex: 1,
+						}}
+					>
+						<Typography variant="h5">
+							{loading
+								? 'Carregando...'
+								: 'Selecione a data que deseja visualizar'}
+						</Typography>
+					</Box>
 				) : (
 					<ScheduleForm
 						item={focusedSchedule}
 						onSave={() => handleMonthChange(date)}
 						onCancel={() => setDate(null)}
+						date={focusedSchedule}
 					/>
 				)}
 			</Box>
