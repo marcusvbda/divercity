@@ -98,7 +98,6 @@ export default function AdminPage(): ReactNode {
 						item={focusedSchedule}
 						onSave={() => handleMonthChange(date)}
 						onCancel={() => setDate(null)}
-						date={focusedSchedule}
 					/>
 				)}
 			</Box>

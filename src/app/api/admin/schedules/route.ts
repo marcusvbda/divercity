@@ -1,4 +1,10 @@
-import { addDoc, collection, deleteDoc, doc } from '@firebase/firestore';
+import {
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	updateDoc,
+} from '@firebase/firestore';
 import { getFreeDates } from '../../scheduler/functions';
 import db from '@/firestore';
 
@@ -33,6 +39,10 @@ export async function POST(req: any) {
 		month: parseInt(body.month),
 		year: parseInt(body.year),
 	};
-	await addDoc(collection(db, 'schedules'), payload);
+	if (payload.id) {
+		await updateDoc(doc(db, 'schedules', payload.id), payload);
+	} else {
+		await addDoc(collection(db, 'schedules'), payload);
+	}
 	return Response.json({ success: true });
 }
