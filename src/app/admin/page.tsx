@@ -6,6 +6,7 @@ import DashboardCard from '@/components/theme/dashboardCard';
 import {
 	Box,
 	Button,
+	CircularProgress,
 	Paper,
 	Table,
 	TableBody,
@@ -67,21 +68,6 @@ export default function AdminPage(): ReactNode {
 		return dates.find((x: any) => x.date === formatedValue);
 	}, [date, dates]);
 
-	if (loading) {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					justifyContent: 'center',
-					padding: '30px 20px',
-					flex: 1,
-				}}
-			>
-				<Typography variant="h5">Aguarde ...</Typography>
-			</Box>
-		);
-	}
-
 	const formatMoney = (value: number, params: any = {}): string => {
 		const currency = params.currency || 'BRL';
 		try {
@@ -119,15 +105,31 @@ export default function AdminPage(): ReactNode {
 		}
 	};
 
+	if (loading) {
+		return (
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					padding: '30px 20px',
+					flex: 1,
+				}}
+			>
+				<CircularProgress />
+			</Box>
+		);
+	}
+
 	return (
 		<>
 			{focusedSchedule && (
-				<a
-					href="#"
-					onClick={(e: any) => [e.preventDefault(), setDate(null)]}
-					style={{ fontSize: 18 }}
-				>
-					← Voltar
+				<a href="#" onClick={(e: any) => [e.preventDefault(), setDate(null)]}>
+					<Typography
+						variant="h5"
+						style={{ cursor: 'pointer', marginBottom: 10 }}
+					>
+						← Voltar
+					</Typography>
 				</a>
 			)}
 			<DashboardCard
