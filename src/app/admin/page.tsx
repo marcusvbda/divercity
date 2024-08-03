@@ -75,27 +75,6 @@ export default function AdminPage(): ReactNode {
 				BRL: 'pt-BR',
 				USD: 'en-US',
 			};
-
-			const symbol = currency === 'USD' ? '$ ' : 'R$ ';
-
-			if (params?.short) {
-				if (value >= 1000000000) {
-					return (
-						symbol + (value / 1000000000).toFixed(1).replace('.0', '') + 'B'
-					);
-				} else if (value >= 1000000) {
-					return symbol + (value / 1000000).toFixed(1).replace('.0', '') + 'M';
-				} else if (value >= 100000) {
-					return symbol + Math.floor(value / 1000) + 'K';
-				} else if (value >= 1000) {
-					return symbol + (value / 1000).toFixed(1).replace('.0', '') + 'K';
-				} else {
-					return new Intl.NumberFormat((currencyMap as any)[currency], {
-						style: 'currency',
-						currency,
-					}).format(value);
-				}
-			}
 			return new Intl.NumberFormat((currencyMap as any)[currency], {
 				style: 'currency',
 				currency,
@@ -132,126 +111,174 @@ export default function AdminPage(): ReactNode {
 					</Typography>
 				</a>
 			)}
-			<DashboardCard
-				title={
-					!focusedSchedule
-						? 'Agenda do salão de festas'
-						: `${(focusedSchedule as any).dayOfWeek}, ${(focusedSchedule as any).formatedDate}`
-				}
-			>
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: { sm: 'column', md: 'row' },
-					}}
-				>
-					{!focusedSchedule && (
-						<DatePicker
-							inline
-							selected={date}
-							locale="pt-BR"
-							onChange={(date: any) => setDate(date)}
-							highlightDates={highlightDates as any}
-							onMonthChange={handleMonthChange}
-							disabled={loading}
-						/>
-					)}
+			<DashboardCard>
+				<>
+					<Typography
+						variant="h2"
+						sx={{ textAlign: 'center', marginBottom: 3 }}
+					>
+						{!focusedSchedule
+							? 'Agenda do salão de festas'
+							: `${(focusedSchedule as any).dayOfWeek}, ${(focusedSchedule as any).formatedDate}`}
+					</Typography>
 					{!focusedSchedule ? (
 						<Box
 							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-								padding: '0 20px 30px',
 								flex: 1,
+								display: 'flex',
+								flexDirection: 'column',
+								gap: 1,
 							}}
 						>
-							<TableContainer component={Paper}>
-								<Table sx={{ minWidth: 650 }}>
-									<TableHead>
-										<TableRow>
-											<TableCell>Data</TableCell>
-											<TableCell align="left">Contratante</TableCell>
-											<TableCell align="right">Reserva</TableCell>
-											<TableCell align="right">Contato</TableCell>
-											<TableCell align="right"></TableCell>
-										</TableRow>
-									</TableHead>
-									<TableBody>
-										{dates
-											.filter((x: any) => x.schedule)
-											.map((row: any) => (
-												<TableRow
-													key={row.schedule.id}
-													sx={{
-														'&:last-child td, &:last-child th': { border: 0 },
-													}}
-												>
-													<TableCell component="th" scope="row">
-														<div
-															style={{
-																display: 'flex',
-																flexDirection: 'column',
-																alignItems: 'flex-start',
-															}}
-														>
-															<strong>{row.formatedDate}</strong>
-															<div>{row.dayOfWeek}</div>
-														</div>
-													</TableCell>
-													<TableCell align="left">
-														{row.schedule.data.name || 'Sem indentificação'}
-													</TableCell>
-													<TableCell align="right">
-														<div
-															style={{
-																display: 'flex',
-																flexDirection: 'column',
-																alignItems: 'flex-end',
-															}}
-														>
-															<strong>
-																{formatMoney(row.schedule.data.enterPrice || 0)}
-															</strong>
-															<div>
-																{row.schedule.data.enterPricePaid
-																	? 'Pago'
-																	: 'Pendente'}
-															</div>
-														</div>
-													</TableCell>
-													<TableCell align="right">
-														<div
-															style={{
-																display: 'flex',
-																flexDirection: 'column',
-																alignItems: 'flex-end',
-															}}
-														>
-															<strong>
-																{formatMoney(row.schedule.data.price || 0)}
-															</strong>
-															<div>
-																{row.schedule.data.pricePaid
-																	? 'Pago'
-																	: 'Pendente'}
-															</div>
-														</div>
-													</TableCell>
-													<TableCell align="right">
-														<Button
-															variant="contained"
-															color="primary"
-															type="button"
-															onClick={() => setDate(row.date)}
-														>
-															Visualizar
-														</Button>
-													</TableCell>
-												</TableRow>
-											))}
-									</TableBody>
-								</Table>
-							</TableContainer>
+							<Box
+								sx={{
+									padding: 1,
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+									border: '1px solid #eaeaea',
+									flex: 1,
+								}}
+							>
+								<DatePicker
+									inline
+									selected={date}
+									locale="pt-BR"
+									onChange={(date: any) => setDate(date)}
+									highlightDates={highlightDates as any}
+									onMonthChange={handleMonthChange}
+									disabled={loading}
+								/>
+							</Box>
+							<Box
+								sx={{
+									display: 'flex',
+									justifyContent: 'center',
+									flex: 1,
+								}}
+							>
+								<Box sx={{ padding: 1, border: '1px solid #eaeaea', flex: 1 }}>
+									<Box sx={{ overflow: 'auto' }}>
+										<Box
+											sx={{
+												width: '100%',
+												display: 'table',
+												tableLayout: 'fixed',
+											}}
+										>
+											<Table size="small">
+												<TableHead>
+													<TableRow>
+														<TableCell>Data</TableCell>
+														<TableCell align="left">Contratante</TableCell>
+														<TableCell align="right">Reserva</TableCell>
+														<TableCell align="right">Contato</TableCell>
+														<TableCell align="right"></TableCell>
+													</TableRow>
+												</TableHead>
+												<TableBody>
+													{dates
+														.filter((x: any) => x.schedule)
+														.map((row: any) => (
+															<TableRow
+																key={row.schedule.id}
+																sx={{
+																	'&:last-child td, &:last-child th': {
+																		border: 0,
+																	},
+																}}
+															>
+																<TableCell
+																	component="th"
+																	scope="row"
+																	sx={{ borderBottom: '1px solid #eaeaea' }}
+																>
+																	<div
+																		style={{
+																			display: 'flex',
+																			flexDirection: 'column',
+																			alignItems: 'flex-start',
+																		}}
+																	>
+																		<strong>{row.formatedDate}</strong>
+																		<div>{row.dayOfWeek}</div>
+																	</div>
+																</TableCell>
+																<TableCell
+																	align="left"
+																	sx={{ borderBottom: '1px solid #eaeaea' }}
+																>
+																	{row.schedule.data.name ||
+																		'Sem indentificação'}
+																</TableCell>
+																<TableCell
+																	align="right"
+																	sx={{ borderBottom: '1px solid #eaeaea' }}
+																>
+																	<div
+																		style={{
+																			display: 'flex',
+																			flexDirection: 'column',
+																			alignItems: 'flex-end',
+																		}}
+																	>
+																		<strong>
+																			{formatMoney(
+																				row.schedule.data.enterPrice || 0,
+																			)}
+																		</strong>
+																		<div>
+																			{row.schedule.data.enterPricePaid
+																				? 'Pago'
+																				: 'Pendente'}
+																		</div>
+																	</div>
+																</TableCell>
+																<TableCell
+																	align="right"
+																	sx={{ borderBottom: '1px solid #eaeaea' }}
+																>
+																	<div
+																		style={{
+																			display: 'flex',
+																			flexDirection: 'column',
+																			alignItems: 'flex-end',
+																		}}
+																	>
+																		<strong>
+																			{formatMoney(
+																				row.schedule.data.price || 0,
+																			)}
+																		</strong>
+																		<div>
+																			{row.schedule.data.pricePaid
+																				? 'Pago'
+																				: 'Pendente'}
+																		</div>
+																	</div>
+																</TableCell>
+																<TableCell
+																	align="right"
+																	sx={{ borderBottom: '1px solid #eaeaea' }}
+																>
+																	<Button
+																		size="small"
+																		variant="contained"
+																		color="primary"
+																		type="button"
+																		onClick={() => setDate(row.date)}
+																	>
+																		→
+																	</Button>
+																</TableCell>
+															</TableRow>
+														))}
+												</TableBody>
+											</Table>
+										</Box>
+									</Box>
+								</Box>
+							</Box>
 						</Box>
 					) : (
 						<ScheduleForm
@@ -260,7 +287,7 @@ export default function AdminPage(): ReactNode {
 							onCancel={() => setDate(null)}
 						/>
 					)}
-				</Box>
+				</>
 			</DashboardCard>
 		</>
 	);

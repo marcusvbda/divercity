@@ -398,82 +398,167 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 							</FormControl>
 							<FormControl fullWidth sx={{ marginTop: 2, marginBottom: 4 }}>
 								<label>Lista de convidados ({form.guests.length})</label>
-								<div
-									style={{ overflowX: 'auto', width: '100%', maxWidth: '100%' }}
-								>
-									<table
-										id="guests-table"
-										style={{
+								<Box sx={{ overflow: 'auto' }}>
+									<Box
+										sx={{
 											width: '100%',
-											border: '1px solid #cacaca',
-											borderRadius: 4,
+											display: 'table',
+											tableLayout: 'fixed',
 										}}
 									>
-										<thead>
-											<tr>
-												<th
-													style={{
-														textAlign: 'left',
-														width: 200,
-														padding: 10,
-														borderBottom: '1px solid #cacaca',
-													}}
-												>
-													Tipo
-												</th>
-												<th
-													style={{
-														textAlign: 'left',
-														padding: 10,
-														borderBottom: '1px solid #cacaca',
-													}}
-												>
-													Nome
-												</th>
-												<th
-													className="ignore-on-export"
-													style={{
-														textAlign: 'left',
-														width: 100,
-														padding: 10,
-														borderBottom: '1px solid #cacaca',
-													}}
-												></th>
-											</tr>
-										</thead>
-										<tbody>
-											{form.guests.map((item: any, i: any) => (
-												<tr key={i}>
-													<td
+										<table
+											id="guests-table"
+											style={{
+												width: '100%',
+												border: '1px solid #cacaca',
+												borderRadius: 4,
+											}}
+										>
+											<thead>
+												<tr>
+													<th
 														style={{
+															textAlign: 'left',
+															minWidth: 110,
 															padding: 10,
 															borderBottom: '1px solid #cacaca',
 														}}
 													>
-														{item.type}
-													</td>
-													<td
+														Tipo
+													</th>
+													<th
 														style={{
+															textAlign: 'left',
 															padding: 10,
 															borderBottom: '1px solid #cacaca',
+															minWidth: 250,
 														}}
 													>
-														{item.name}
-													</td>
-													<td
+														Nome
+													</th>
+													<th
 														className="ignore-on-export"
 														style={{
+															textAlign: 'left',
+															width: 1,
 															padding: 10,
-															textAlign: 'center',
 															borderBottom: '1px solid #cacaca',
 														}}
+													></th>
+												</tr>
+											</thead>
+											<tbody>
+												{form.guests.map((item: any, i: any) => (
+													<tr key={i}>
+														<td
+															style={{
+																padding: 10,
+																borderBottom: '1px solid #cacaca',
+															}}
+														>
+															{item.type}
+														</td>
+														<td
+															style={{
+																padding: 10,
+																borderBottom: '1px solid #cacaca',
+															}}
+														>
+															{item.name}
+														</td>
+														<td
+															className="ignore-on-export"
+															style={{
+																padding: 10,
+																textAlign: 'center',
+																borderBottom: '1px solid #cacaca',
+															}}
+														>
+															<Button
+																variant="contained"
+																color="error"
+																onClick={() => {
+																	Swal.fire({
+																		title: 'Confirmação!',
+																		text: 'Excluir ?',
+																		icon: 'warning',
+																		showCancelButton: true,
+																		confirmButtonText: 'Sim',
+																		cancelButtonText: 'Não',
+																	}).then(async (result) => {
+																		if (result.isConfirmed) {
+																			setForm({
+																				...form,
+																				guests: form.guests.filter(
+																					(d: any) => d.id !== item.id,
+																				),
+																			});
+																		}
+																	});
+																}}
+															>
+																✕
+															</Button>
+														</td>
+													</tr>
+												))}
+												<tr>
+													<td
+														style={{
+															textAlign: 'left',
+															padding: 10,
+														}}
+														className="ignore-on-export"
+													>
+														<FormControl fullWidth>
+															<InputLabel>Tipo</InputLabel>
+															<Select
+																value={newGuest.type}
+																size="small"
+																label="Tipo"
+																onChange={(e) =>
+																	setNewGuest({
+																		...newGuest,
+																		type: e.target.value,
+																	})
+																}
+															>
+																<MenuItem value="adulto">Adulto</MenuItem>
+																<MenuItem value="criança">Criança</MenuItem>
+															</Select>
+														</FormControl>
+													</td>
+													<td
+														style={{
+															textAlign: 'left',
+															padding: 10,
+														}}
+														className="ignore-on-export"
+													>
+														<FormControl fullWidth>
+															<TextField
+																size="small"
+																variant="outlined"
+																value={newGuest.name}
+																onChange={(e) =>
+																	setNewGuest({
+																		...newGuest,
+																		name: e.target.value,
+																	})
+																}
+															/>
+														</FormControl>
+													</td>
+													<td
+														style={{ padding: 10, textAlign: 'center' }}
+														className="ignore-on-export"
 													>
 														<Button
-															variant="contained"
+															variant="outlined"
 															onClick={() => {
 																Swal.fire({
 																	title: 'Confirmação!',
-																	text: 'Excluir ?',
+																	text: 'Adicionar ?',
 																	icon: 'warning',
 																	showCancelButton: true,
 																	confirmButtonText: 'Sim',
@@ -482,107 +567,28 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 																	if (result.isConfirmed) {
 																		setForm({
 																			...form,
-																			guests: form.guests.filter(
-																				(d: any) => d.id !== item.id,
-																			),
+																			guests: [
+																				...form.guests,
+																				{
+																					name: newGuest.name || 'sem nome',
+																					type: newGuest.type || 'adulto',
+																					id: generateUniqueId(),
+																				},
+																			],
 																		});
+																		setNewGuest(newGuestDefault);
 																	}
 																});
 															}}
 														>
-															Excluir
+															+
 														</Button>
 													</td>
 												</tr>
-											))}
-											<tr>
-												<td
-													style={{
-														textAlign: 'left',
-														padding: 10,
-														minWidth: 300,
-													}}
-													className="ignore-on-export"
-												>
-													<FormControl fullWidth>
-														<InputLabel>Tipo</InputLabel>
-														<Select
-															value={newGuest.type}
-															size="small"
-															label="Tipo"
-															onChange={(e) =>
-																setNewGuest({
-																	...newGuest,
-																	type: e.target.value,
-																})
-															}
-														>
-															<MenuItem value="adulto">Adulto</MenuItem>
-															<MenuItem value="criança">Criança</MenuItem>
-														</Select>
-													</FormControl>
-												</td>
-												<td
-													style={{
-														textAlign: 'left',
-														padding: 10,
-														minWidth: 500,
-													}}
-													className="ignore-on-export"
-												>
-													<FormControl fullWidth>
-														<TextField
-															size="small"
-															variant="outlined"
-															value={newGuest.name}
-															onChange={(e) =>
-																setNewGuest({
-																	...newGuest,
-																	name: e.target.value,
-																})
-															}
-														/>
-													</FormControl>
-												</td>
-												<td
-													style={{ padding: 10, textAlign: 'center' }}
-													className="ignore-on-export"
-												>
-													<Button
-														variant="outlined"
-														onClick={() => {
-															Swal.fire({
-																title: 'Confirmação!',
-																text: 'Adicionar ?',
-																icon: 'warning',
-																showCancelButton: true,
-																confirmButtonText: 'Sim',
-																cancelButtonText: 'Não',
-															}).then(async (result) => {
-																if (result.isConfirmed) {
-																	setForm({
-																		...form,
-																		guests: [
-																			...form.guests,
-																			{
-																				name: newGuest.name || 'sem nome',
-																				type: newGuest.type || 'adulto',
-																				id: generateUniqueId(),
-																			},
-																		],
-																	});
-																	setNewGuest(newGuestDefault);
-																}
-															});
-														}}
-													>
-														Adicionar
-													</Button>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+											</tbody>
+										</table>
+									</Box>
+								</Box>
 								<div
 									style={{ display: 'flex', justifyContent: 'space-between' }}
 								>
@@ -599,82 +605,165 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 							</FormControl>
 							<FormControl fullWidth sx={{ marginTop: 2, marginBottom: 4 }}>
 								<label>Lista de bebidas ({form.drinks.length})</label>
-								<div
-									style={{ overflowX: 'auto', width: '100%', maxWidth: '100%' }}
-								>
-									<table
-										id="drinks-table"
-										style={{
+								<Box sx={{ overflow: 'auto' }}>
+									<Box
+										sx={{
 											width: '100%',
-											border: '1px solid #cacaca',
-											borderRadius: 4,
+											display: 'table',
+											tableLayout: 'fixed',
 										}}
 									>
-										<thead>
-											<tr>
-												<th
-													style={{
-														textAlign: 'left',
-														width: 100,
-														padding: 10,
-														borderBottom: '1px solid #cacaca',
-													}}
-												>
-													Qtde
-												</th>
-												<th
-													style={{
-														textAlign: 'left',
-														padding: 10,
-														borderBottom: '1px solid #cacaca',
-													}}
-												>
-													Nome
-												</th>
-												<th
-													className="ignore-on-export"
-													style={{
-														textAlign: 'left',
-														width: 100,
-														padding: 10,
-														borderBottom: '1px solid #cacaca',
-													}}
-												></th>
-											</tr>
-										</thead>
-										<tbody>
-											{form.drinks.map((item: any, i: any) => (
-												<tr key={i}>
-													<td
+										<table
+											id="drinks-table"
+											style={{
+												width: '100%',
+												border: '1px solid #cacaca',
+												borderRadius: 4,
+											}}
+										>
+											<thead>
+												<tr>
+													<th
 														style={{
+															textAlign: 'left',
+															minWidth: 150,
+															width: 150,
 															padding: 10,
 															borderBottom: '1px solid #cacaca',
 														}}
 													>
-														{item.qty}
-													</td>
-													<td
+														Qtde
+													</th>
+													<th
 														style={{
+															textAlign: 'left',
 															padding: 10,
 															borderBottom: '1px solid #cacaca',
+															minWidth: 250,
 														}}
 													>
-														{item.name}
-													</td>
-													<td
+														Nome
+													</th>
+													<th
 														className="ignore-on-export"
 														style={{
+															textAlign: 'left',
+															width: 1,
 															padding: 10,
-															textAlign: 'center',
 															borderBottom: '1px solid #cacaca',
 														}}
+													></th>
+												</tr>
+											</thead>
+											<tbody>
+												{form.drinks.map((item: any, i: any) => (
+													<tr key={i}>
+														<td
+															style={{
+																padding: 10,
+																borderBottom: '1px solid #cacaca',
+															}}
+														>
+															{item.qty}
+														</td>
+														<td
+															style={{
+																padding: 10,
+																borderBottom: '1px solid #cacaca',
+															}}
+														>
+															{item.name}
+														</td>
+														<td
+															style={{
+																padding: 10,
+																textAlign: 'center',
+																borderBottom: '1px solid #cacaca',
+															}}
+															className="ignore-on-export"
+														>
+															<Button
+																variant="contained"
+																color="error"
+																onClick={() => {
+																	Swal.fire({
+																		title: 'Confirmação!',
+																		text: 'Excluir ?',
+																		icon: 'warning',
+																		showCancelButton: true,
+																		confirmButtonText: 'Sim',
+																		cancelButtonText: 'Não',
+																	}).then(async (result) => {
+																		if (result.isConfirmed) {
+																			setForm({
+																				...form,
+																				drinks: form.drinks.filter(
+																					(d: any) => d.name !== item.name,
+																				),
+																			});
+																		}
+																	});
+																}}
+															>
+																✕
+															</Button>
+														</td>
+													</tr>
+												))}
+												<tr>
+													<td
+														style={{
+															textAlign: 'left',
+															padding: 10,
+														}}
+														className="ignore-on-export"
+													>
+														<FormControl fullWidth>
+															<TextField
+																size="small"
+																type="number"
+																variant="outlined"
+																value={newDrink.qty}
+																onChange={(e) =>
+																	setNewDrink({
+																		...newDrink,
+																		qty: parseInt(e.target.value),
+																	})
+																}
+															/>
+														</FormControl>
+													</td>
+													<td
+														style={{
+															textAlign: 'left',
+															padding: 10,
+														}}
+														className="ignore-on-export"
+													>
+														<FormControl fullWidth>
+															<TextField
+																size="small"
+																variant="outlined"
+																value={newDrink.name}
+																onChange={(e) =>
+																	setNewDrink({
+																		...newDrink,
+																		name: e.target.value,
+																	})
+																}
+															/>
+														</FormControl>
+													</td>
+													<td
+														style={{ padding: 10, textAlign: 'center' }}
+														className="ignore-on-export"
 													>
 														<Button
-															variant="contained"
+															variant="outlined"
 															onClick={() => {
 																Swal.fire({
 																	title: 'Confirmação!',
-																	text: 'Excluir ?',
+																	text: 'Adicionar ?',
 																	icon: 'warning',
 																	showCancelButton: true,
 																	confirmButtonText: 'Sim',
@@ -683,104 +772,28 @@ export default function ScheduleForm({ item, onSave, onCancel }: any) {
 																	if (result.isConfirmed) {
 																		setForm({
 																			...form,
-																			drinks: form.drinks.filter(
-																				(d: any) => d.name !== item.name,
-																			),
+																			drinks: [
+																				...form.drinks,
+																				{
+																					name: newDrink.name || 'sem nome',
+																					qty: newDrink.qty || 0,
+																					id: generateUniqueId(),
+																				},
+																			],
 																		});
+																		setNewDrink(newDrinkDefault);
 																	}
 																});
 															}}
 														>
-															Excluir
+															+
 														</Button>
 													</td>
 												</tr>
-											))}
-											<tr>
-												<td
-													style={{
-														textAlign: 'left',
-														padding: 10,
-														minWidth: 100,
-													}}
-													className="ignore-on-export"
-												>
-													<FormControl fullWidth>
-														<TextField
-															size="small"
-															type="number"
-															variant="outlined"
-															value={newDrink.qty}
-															onChange={(e) =>
-																setNewDrink({
-																	...newDrink,
-																	qty: parseInt(e.target.value),
-																})
-															}
-														/>
-													</FormControl>
-												</td>
-												<td
-													style={{
-														textAlign: 'left',
-														padding: 10,
-														minWidth: 200,
-													}}
-													className="ignore-on-export"
-												>
-													<FormControl fullWidth>
-														<TextField
-															size="small"
-															variant="outlined"
-															value={newDrink.name}
-															onChange={(e) =>
-																setNewDrink({
-																	...newDrink,
-																	name: e.target.value,
-																})
-															}
-														/>
-													</FormControl>
-												</td>
-												<td
-													style={{ padding: 10, textAlign: 'center' }}
-													className="ignore-on-export"
-												>
-													<Button
-														variant="outlined"
-														onClick={() => {
-															Swal.fire({
-																title: 'Confirmação!',
-																text: 'Adicionar ?',
-																icon: 'warning',
-																showCancelButton: true,
-																confirmButtonText: 'Sim',
-																cancelButtonText: 'Não',
-															}).then(async (result) => {
-																if (result.isConfirmed) {
-																	setForm({
-																		...form,
-																		drinks: [
-																			...form.drinks,
-																			{
-																				name: newDrink.name || 'sem nome',
-																				qty: newDrink.qty || 0,
-																				id: generateUniqueId(),
-																			},
-																		],
-																	});
-																	setNewDrink(newDrinkDefault);
-																}
-															});
-														}}
-													>
-														Adicionar
-													</Button>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+											</tbody>
+										</table>
+									</Box>
+								</Box>
 								<div
 									style={{ display: 'flex', justifyContent: 'space-between' }}
 								>
