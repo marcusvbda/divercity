@@ -52,6 +52,10 @@ export default function AdminPage(): ReactNode {
 		fetchDates(date.getFullYear(), date.getMonth() + 1);
 	};
 
+	const handleDateChange = (date: any) => {
+		setDate(date);
+	};
+
 	useEffect(() => {
 		const currentDate = new Date();
 		const year = currentDate.getFullYear();
@@ -83,21 +87,6 @@ export default function AdminPage(): ReactNode {
 			return ' - ';
 		}
 	};
-
-	if (loading) {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					justifyContent: 'center',
-					padding: '30px 20px',
-					flex: 1,
-				}}
-			>
-				<CircularProgress />
-			</Box>
-		);
-	}
 
 	return (
 		<>
@@ -138,147 +127,171 @@ export default function AdminPage(): ReactNode {
 									justifyContent: 'center',
 									border: '1px solid #eaeaea',
 									flex: 1,
+									...(loading && {
+										pointerEvents: 'none',
+										opacity: 0.2,
+									}),
 								}}
 							>
 								<DatePicker
 									inline
 									selected={date}
 									locale="pt-BR"
-									onChange={(date: any) => setDate(date)}
+									onChange={handleDateChange}
 									highlightDates={highlightDates as any}
 									onMonthChange={handleMonthChange}
 									disabled={loading}
 								/>
 							</Box>
-							<Box
-								sx={{
-									display: 'flex',
-									justifyContent: 'center',
-									flex: 1,
-								}}
-							>
-								<Box sx={{ padding: 1, border: '1px solid #eaeaea', flex: 1 }}>
-									<Box sx={{ overflow: 'auto' }}>
-										<Box
-											sx={{
-												width: '100%',
-												display: 'table',
-												tableLayout: 'fixed',
-											}}
-										>
-											<Table size="small">
-												<TableHead>
-													<TableRow>
-														<TableCell>Data</TableCell>
-														<TableCell align="left">Contratante</TableCell>
-														<TableCell align="right">Reserva</TableCell>
-														<TableCell align="right">Contato</TableCell>
-														<TableCell align="right"></TableCell>
-													</TableRow>
-												</TableHead>
-												<TableBody>
-													{dates
-														.filter((x: any) => x.schedule)
-														.map((row: any) => (
-															<TableRow
-																key={row.schedule.id}
-																sx={{
-																	'&:last-child td, &:last-child th': {
-																		border: 0,
-																	},
-																}}
-															>
-																<TableCell
-																	component="th"
-																	scope="row"
-																	sx={{ borderBottom: '1px solid #eaeaea' }}
-																>
-																	<div
-																		style={{
-																			display: 'flex',
-																			flexDirection: 'column',
-																			alignItems: 'flex-start',
-																		}}
-																	>
-																		<strong>{row.formatedDate}</strong>
-																		<div>{row.dayOfWeek}</div>
-																	</div>
-																</TableCell>
-																<TableCell
-																	align="left"
-																	sx={{ borderBottom: '1px solid #eaeaea' }}
-																>
-																	{row.schedule.data.name ||
-																		'Sem indentificação'}
-																</TableCell>
-																<TableCell
-																	align="right"
-																	sx={{ borderBottom: '1px solid #eaeaea' }}
-																>
-																	<div
-																		style={{
-																			display: 'flex',
-																			flexDirection: 'column',
-																			alignItems: 'flex-end',
-																		}}
-																	>
-																		<strong>
-																			{formatMoney(
-																				row.schedule.data.enterPrice || 0,
-																			)}
-																		</strong>
-																		<div>
-																			{row.schedule.data.enterPricePaid
-																				? 'Pago'
-																				: 'Pendente'}
-																		</div>
-																	</div>
-																</TableCell>
-																<TableCell
-																	align="right"
-																	sx={{ borderBottom: '1px solid #eaeaea' }}
-																>
-																	<div
-																		style={{
-																			display: 'flex',
-																			flexDirection: 'column',
-																			alignItems: 'flex-end',
-																		}}
-																	>
-																		<strong>
-																			{formatMoney(
-																				row.schedule.data.price || 0,
-																			)}
-																		</strong>
-																		<div>
-																			{row.schedule.data.pricePaid
-																				? 'Pago'
-																				: 'Pendente'}
-																		</div>
-																	</div>
-																</TableCell>
-																<TableCell
-																	align="right"
-																	sx={{ borderBottom: '1px solid #eaeaea' }}
-																>
-																	<Button
-																		size="small"
-																		variant="contained"
-																		color="primary"
-																		type="button"
-																		onClick={() => setDate(row.date)}
-																	>
-																		→
-																	</Button>
-																</TableCell>
+							{loading && (
+								<Box
+									sx={{
+										display: 'flex',
+										justifyContent: 'center',
+										padding: '30px 20px',
+										flex: 1,
+									}}
+								>
+									<CircularProgress />
+								</Box>
+							)}
+							{!loading && (
+								<Box
+									sx={{
+										display: 'flex',
+										justifyContent: 'center',
+										flex: 1,
+									}}
+								>
+									<Box
+										sx={{ padding: 1, border: '1px solid #eaeaea', flex: 1 }}
+									>
+										<Box sx={{ overflow: 'auto' }}>
+											<Box
+												sx={{
+													width: '100%',
+													display: 'table',
+													tableLayout: 'fixed',
+												}}
+											>
+												{dates.filter((x: any) => x.schedule).length ? (
+													<Table size="small">
+														<TableHead>
+															<TableRow>
+																<TableCell>Data</TableCell>
+																<TableCell align="left">Contratante</TableCell>
+																<TableCell align="right">Reserva</TableCell>
+																<TableCell align="right">Contato</TableCell>
+																<TableCell align="right"></TableCell>
 															</TableRow>
-														))}
-												</TableBody>
-											</Table>
+														</TableHead>
+														<TableBody>
+															{dates
+																.filter((x: any) => x.schedule)
+																.map((row: any) => (
+																	<TableRow
+																		key={row.schedule.id}
+																		sx={{
+																			'&:last-child td, &:last-child th': {
+																				border: 0,
+																			},
+																		}}
+																	>
+																		<TableCell
+																			component="th"
+																			scope="row"
+																			sx={{ borderBottom: '1px solid #eaeaea' }}
+																		>
+																			<div
+																				style={{
+																					display: 'flex',
+																					flexDirection: 'column',
+																					alignItems: 'flex-start',
+																				}}
+																			>
+																				<strong>{row.formatedDate}</strong>
+																				<div>{row.dayOfWeek}</div>
+																			</div>
+																		</TableCell>
+																		<TableCell
+																			align="left"
+																			sx={{ borderBottom: '1px solid #eaeaea' }}
+																		>
+																			{row.schedule.data.name ||
+																				'Sem indentificação'}
+																		</TableCell>
+																		<TableCell
+																			align="right"
+																			sx={{ borderBottom: '1px solid #eaeaea' }}
+																		>
+																			<div
+																				style={{
+																					display: 'flex',
+																					flexDirection: 'column',
+																					alignItems: 'flex-end',
+																				}}
+																			>
+																				<strong>
+																					{formatMoney(
+																						row.schedule.data.enterPrice || 0,
+																					)}
+																				</strong>
+																				<div>
+																					{row.schedule.data.enterPricePaid
+																						? 'Pago'
+																						: 'Pendente'}
+																				</div>
+																			</div>
+																		</TableCell>
+																		<TableCell
+																			align="right"
+																			sx={{ borderBottom: '1px solid #eaeaea' }}
+																		>
+																			<div
+																				style={{
+																					display: 'flex',
+																					flexDirection: 'column',
+																					alignItems: 'flex-end',
+																				}}
+																			>
+																				<strong>
+																					{formatMoney(
+																						row.schedule.data.price || 0,
+																					)}
+																				</strong>
+																				<div>
+																					{row.schedule.data.pricePaid
+																						? 'Pago'
+																						: 'Pendente'}
+																				</div>
+																			</div>
+																		</TableCell>
+																		<TableCell
+																			align="right"
+																			sx={{ borderBottom: '1px solid #eaeaea' }}
+																		>
+																			<Button
+																				size="small"
+																				variant="contained"
+																				color="primary"
+																				type="button"
+																				onClick={() => setDate(row.date)}
+																			>
+																				→
+																			</Button>
+																		</TableCell>
+																	</TableRow>
+																))}
+														</TableBody>
+													</Table>
+												) : (
+													<>Nenhum agendamento para este mês</>
+												)}
+											</Box>
 										</Box>
 									</Box>
 								</Box>
-							</Box>
+							)}
 						</Box>
 					) : (
 						<ScheduleForm
