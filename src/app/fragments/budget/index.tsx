@@ -249,19 +249,24 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 		<>
 			<h4>Qual é a melhor data para sua festa?</h4>
 			<form id="step-4-form" onSubmit={submitHandler}>
-				<div className="selection-date">
-					<DatePicker
-						selected={selectedDate}
-						onChange={(date) => setSelectedDate(date as any)}
-						filterDate={isDateAvailable}
-						onMonthChange={handleMonthChange}
-						inline
-						locale="pt-BR"
-						disabled={loading}
-						required
-					/>
-				</div>
-				{!selectedDate && <small>escolha uma data para sua festa</small>}
+				{!loading && (
+					<>
+						<div className="selection-date">
+							<DatePicker
+								selected={selectedDate}
+								onChange={(date) => setSelectedDate(date as any)}
+								filterDate={isDateAvailable}
+								onMonthChange={handleMonthChange}
+								inline
+								locale="pt-BR"
+								disabled={loading}
+								required
+							/>
+						</div>
+						{!selectedDate && <small>escolha uma data para sua festa</small>}
+					</>
+				)}
+				{loading && <small>Carregando datas disponíveis ...</small>}
 			</form>
 			<div className="btns">
 				<button
@@ -488,7 +493,14 @@ const Step6 = ({ form, setForm, step, setStep }: any) => {
 };
 
 const Review = ({ setForm, form, step, setStep }: any) => {
-	const priceBuffet = parseInt(process.env.NEXT_PUBLIC_PRICE_BUFFET || '0');
+	const isWeekend = ['Sábado', 'Domingo'].includes(form?.date?.dayOfWeek || '');
+
+	const priceBuffet = parseInt(
+		isWeekend
+			? process.env.NEXT_PUBLIC_PRICE_BUFFET_WEEKEND || '0'
+			: process.env.NEXT_PUBLIC_PRICE_BUFFET || '0',
+	);
+
 	const pricePerKid = parseInt(
 		process.env.NEXT_PUBLIC_PRICE_BUFFET_PERSON || '0',
 	);
@@ -560,6 +572,7 @@ const Review = ({ setForm, form, step, setStep }: any) => {
 		form.choppQty,
 		form.juiceQty,
 		form.waterQty,
+		form?.date?.dayOfWeek,
 		pricePerKid,
 		pricePerKidWeekend,
 		priceBuffet,
@@ -581,7 +594,7 @@ const Review = ({ setForm, form, step, setStep }: any) => {
 			} %0a` +
 			`*Consumo estimado do bar:* ${totalPrice.totalBar} %0a` +
 			`*Custo dos passaportes:* ${totalPrice.totalKid} (${totalPrice.totalKidWeekend} para sexta-feira, sábado, domingo e feriados)%0a` +
-			`*Custo do salão:* ${totalPrice.priceBuffet} %0a` +
+			`*Custo do salão:* ${totalPrice.priceBuffet} (podendo variar em caso de feriados) %0a` +
 			`*Total estimado:* ${totalPrice.total} (${totalPrice.totalWeekend} para sexta-feira, sábado, domingo e feriados )`;
 		const url = `https://wa.me/${phone}?text=${message}`;
 		window.open(url, '_blank');
@@ -637,7 +650,7 @@ const Review = ({ setForm, form, step, setStep }: any) => {
 					</p>
 					<p>
 						<strong>Custo do salão : </strong>
-						{totalPrice.priceBuffet}
+						{totalPrice.priceBuffet} (podendo variar em caso de feriados)
 					</p>
 					<p>
 						<strong>Total estimado: </strong>
