@@ -181,7 +181,9 @@ export default function AdminPage(): ReactNode {
 																<TableCell>Data</TableCell>
 																<TableCell align="left">Contratante</TableCell>
 																<TableCell align="right">Reserva</TableCell>
-																<TableCell align="right">Contato</TableCell>
+																<TableCell align="right">
+																	Total Contrato
+																</TableCell>
 																<TableCell align="right"></TableCell>
 															</TableRow>
 														</TableHead>
