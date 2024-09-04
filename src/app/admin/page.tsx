@@ -7,11 +7,9 @@ import {
 	Box,
 	Button,
 	CircularProgress,
-	Paper,
 	Table,
 	TableBody,
 	TableCell,
-	TableContainer,
 	TableHead,
 	TableRow,
 	Typography,
@@ -36,14 +34,14 @@ export default function AdminPage(): ReactNode {
 			.then((data) => {
 				const datesValue = data.days || [];
 				setDates(datesValue);
-				setHighlightDates(
-					datesValue
-						.filter((x: any) => !x.available)
-						.map((x: any) => {
-							const [year, month, day] = x.date.split('-').map(Number);
-							return new Date(year, month - 1, day);
-						}),
-				);
+				const hLDates = datesValue
+					.filter((x: any) => !x.available)
+					.map((x: any) => {
+						const [year, month, day] = x.date.split('-').map(Number);
+						return new Date(year, month - 1, day);
+					});
+				console.log(hLDates);
+				setHighlightDates(hLDates);
 				setLoading(false);
 			});
 	};
@@ -56,11 +54,16 @@ export default function AdminPage(): ReactNode {
 		setDate(date);
 	};
 
-	useEffect(() => {
+	const handleFetch = () => {
+		console.log(123);
 		const currentDate = new Date();
 		const year = currentDate.getFullYear();
 		const month = currentDate.getMonth() + 1;
 		fetchDates(year, month);
+	};
+
+	useEffect(() => {
+		handleFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -91,7 +94,14 @@ export default function AdminPage(): ReactNode {
 	return (
 		<>
 			{focusedSchedule && (
-				<a href="#" onClick={(e: any) => [e.preventDefault(), setDate(null)]}>
+				<a
+					href="#"
+					onClick={(e: any) => {
+						e.preventDefault();
+						setDate(null);
+						handleFetch();
+					}}
+				>
 					<Typography
 						variant="h5"
 						style={{ cursor: 'pointer', marginBottom: 10 }}
@@ -299,7 +309,10 @@ export default function AdminPage(): ReactNode {
 						<ScheduleForm
 							item={focusedSchedule}
 							onSave={() => handleMonthChange(date)}
-							onCancel={() => setDate(null)}
+							onCancel={() => {
+								setDate(null);
+								handleFetch();
+							}}
 						/>
 					)}
 				</>
