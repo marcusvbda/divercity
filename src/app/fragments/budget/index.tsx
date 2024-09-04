@@ -249,24 +249,35 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 		<>
 			<h4>Qual é a melhor data para sua festa?</h4>
 			<form id="step-4-form" onSubmit={submitHandler}>
-				{!loading && (
-					<>
-						<div className="selection-date">
-							<DatePicker
-								selected={selectedDate}
-								onChange={(date) => setSelectedDate(date as any)}
-								filterDate={isDateAvailable}
-								onMonthChange={handleMonthChange}
-								inline
-								locale="pt-BR"
-								disabled={loading}
-								required
-							/>
+				<div className="selection-date" style={{ position: 'relative' }}>
+					{loading && (
+						<div
+							style={{
+								inset: 0,
+								backgroundColor: '#e5e5e5',
+								position: 'absolute',
+								zIndex: 2,
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								cursor: 'wait',
+							}}
+						>
+							<small>Carregando ...</small>
 						</div>
-						{!selectedDate && <small>escolha uma data para sua festa</small>}
-					</>
-				)}
-				{loading && <small>Carregando datas disponíveis ...</small>}
+					)}
+					<DatePicker
+						selected={selectedDate}
+						onChange={(date) => setSelectedDate(date as any)}
+						filterDate={isDateAvailable}
+						onMonthChange={handleMonthChange}
+						inline
+						locale="pt-BR"
+						disabled={loading}
+						required
+					/>
+				</div>
+				{!selectedDate && <small>escolha uma data para sua festa</small>}
 			</form>
 			<div className="btns">
 				<button
