@@ -200,7 +200,8 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 		form.date && new Date(form.date.date),
 	);
 
-	const isDateAvailable = (date: any) => {
+	const isDateAvailable = (date: any, publicRequest = false) => {
+		if (publicRequest && date.getFullYear() > 2024) return false;
 		const isAvailable =
 			(freeDates.find((x: any) => x.date === format(date, 'yyyy-MM-dd')) as any)
 				?.available || false;
@@ -269,7 +270,7 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 					<DatePicker
 						selected={selectedDate}
 						onChange={(date) => setSelectedDate(date as any)}
-						filterDate={isDateAvailable}
+						filterDate={(date: any) => isDateAvailable(date, true)}
 						onMonthChange={handleMonthChange}
 						inline
 						locale="pt-BR"
@@ -277,7 +278,15 @@ const Step4 = ({ setForm, form, step, setStep }: any) => {
 						required
 					/>
 				</div>
-				{!selectedDate && <small>escolha uma data para sua festa</small>}
+				{!selectedDate && (
+					<>
+						<small>Escolha uma data para sua festa.</small>
+						<small>
+							Para datas a partir de janeiro de 2025, entre em contato pelo
+							WhatsApp.
+						</small>
+					</>
+				)}
 			</form>
 			<div className="btns">
 				<button
